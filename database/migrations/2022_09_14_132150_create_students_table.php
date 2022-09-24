@@ -27,6 +27,7 @@ class CreateStudentsTable extends Migration
             $table->string('contact')->unique();
             $table->string('email')->unique();
             $table->string('address');
+            $table->string('profile_pic');
             $table->timestamps();
         });
     }
