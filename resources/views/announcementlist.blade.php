@@ -1,5 +1,15 @@
 @extends('layouts.layout')
 @section('content')
+<section class="content-header">
+    <h1>
+        <br>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li class="active">Announcement List</li>
+    </ol>
+</section>
+
 {{-- <button class="button-29" role="button">Create Announcement</button> --}}
 <div class="space">
     <br>

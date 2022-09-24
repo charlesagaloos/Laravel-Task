@@ -71,28 +71,28 @@
                     @php
 
                         @endphp
-                        @foreach ($students as $student)
+                        @foreach ($find as $search)
                             <tbody>
                                 <tr id="student_id_{{ $student->id }}">
                                     {{-- <td>{{ $student->id }}</td> --}}
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->gender }}</td>
-                                    <td>{{ $student->birthday }}</td>
-                                    <td>{{ $student->birthplace }}</td>
-                                    <td>{{ $student->contact }}</td>
-                                    <td>{{ $student->email }}</td>
-                                    <td>{{ $student->address }}</td>
+                                    <td>{{ $search->name }}</td>
+                                    <td>{{ $search->gender }}</td>
+                                    <td>{{ $search->birthday }}</td>
+                                    <td>{{ $search->birthplace }}</td>
+                                    <td>{{ $search->contact }}</td>
+                                    <td>{{ $search->email }}</td>
+                                    <td>{{ $search->address }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <form action="{{ route('student.destroy',$student->id) }}" method="POST">
-                                                <a class="btn btn-success" href="{{ url('students/edit/'.$student->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            <form action="{{ route('student.destroy',$search->id) }}" method="POST">
+                                                <a class="btn btn-success" href="{{ url('students/edit/'.$search->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                                                 {{-- <button  type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit{{ $student->id }}">Edit</button> --}}
 
 
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                                     {{-- <input type="submit" data-id="{{ $student->id }}" class="btn btn-danger delete-user" value="Delete"> --}}
-                                                <button type="submit" data-id="{{ $student->id }}" class="btn btn-danger delete-user">
+                                                <button type="submit" data-id="{{ $search->id }}" class="btn btn-danger delete-user">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </form>

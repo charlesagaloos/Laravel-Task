@@ -45,11 +45,10 @@ class StudentsImport implements ToModel,WithHeadingRow,WithValidation,SkipsOnErr
             'middlename' => $row['middlename'],
             'lastname' => $row['lastname'],
             'email' => $row['email'],
-            'password' => bcrypt($row['lastname']),
+            'password' => bcrypt($row['lastname'].$applicationID),
             'user_level' => '2',
         ]);
 
-        //$studentdata = User::where('email',$user_acc->email)->first();
 
 
         return new Students([

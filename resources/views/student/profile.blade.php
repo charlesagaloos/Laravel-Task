@@ -141,6 +141,15 @@
               </p>
               <hr>
 
+
+
+              <strong><i class="fa fa-file-invoice"></i></i> Application #</strong>
+
+              <p class="text-muted">
+                # {{ $student->appnum }}
+              </p>
+              <hr>
+
             </div>
             <!-- /.box-body -->
           </div>

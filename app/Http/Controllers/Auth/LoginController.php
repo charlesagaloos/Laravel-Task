@@ -36,10 +36,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // dd(Hash::make(''));
 
-
-        // dd(Hash::make('123123123123'));
         $this->middleware('guest')->except('logout');
     }
 }

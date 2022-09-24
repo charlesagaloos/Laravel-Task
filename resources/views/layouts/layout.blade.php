@@ -102,14 +102,14 @@
             </div> --}}
           </div>
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+          {{-- <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
                     <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                     </button>
                   </span>
-            </div>
+            </div> --}}
           </form>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -154,7 +154,7 @@
               </a>
               <ul class="treeview-menu">
 
-                <li><a href="{{ url('/application') }}"><i class="fa fa-circle-o"></i> Table list of Applicants</a></li>
+                <li><a href="{{ url('/application') }}"><i class="fa fa-circle-o"></i> Student Application</a></li>
                 {{-- <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
                 <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
                 <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li> --}}
@@ -411,6 +411,13 @@
     <main class="content-wrapper">
         @yield('content')
     </main>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.4.18
+        </div>
+        <strong>Copyright &copy; 2022-2025 <a href="https://adminlte.io">ISCP</a>.</strong> All rights
+        reserved.
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 

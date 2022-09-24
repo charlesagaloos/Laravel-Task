@@ -2,6 +2,17 @@
 @section('content')
 @include('sweetalert::alert')
 
+
+<section class="content-header">
+    <h1>
+        <br>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li class="active">Line Chart</li>
+    </ol>
+</section>
+
 <section class="content">
     <div class="row">
       <div class="col-xs-12">

@@ -13,6 +13,7 @@ use App\User;
 use App\Admin;
 use DB;
 use PDF;
+use Auth;
 use Storage;
 
 use Redirect,Response;
@@ -69,6 +70,17 @@ class AdminsController extends Controller
 		$students = Students::paginate(4);
 		return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
 	}
+
+    public function search()
+	{
+
+        $students = Students::paginate(4);
+		$search_text = $_GET['query'];
+        $find = Students::where('firstname','LIKE', '%'.$search_text.'%')->with('category')->get();
+        return view('search',compact('find'));
+	}
+
+
 
     public function application()
 	{
@@ -134,7 +146,7 @@ class AdminsController extends Controller
             'middlename' => $request['middlename'],
             'lastname' => $request['lastname'],
             'email' => $request['email'],
-            'password' => Hash::make($request['lastname']),
+            'password' => Hash::make($request['lastname'].$applicationID),
             'user_level' => '2',
 
         ]);
@@ -168,12 +180,17 @@ class AdminsController extends Controller
         //return redirect()->route('student.index')->with('success', 'Student has been Added');
         return redirect('/application')->with('success', 'Student has been Added');
     }
+
+
         // UPDATE FUNCTION
     public function edit(Students $student){
         return view('edit')->with('student',$student);
     }
 
     public function update(Request $request, Students $student){
+
+        //$email = $student->email;
+        // dd($email);
 
         $student->update([
             // 'name' => $request->firstname.' '.$request->middlename.' '.$request->lastname,
@@ -188,6 +205,16 @@ class AdminsController extends Controller
             'address' => $request->address,
             'updated_at' => now(),
         ]);
+
+        // $studentdata = User::where('email',$student->email)->first();
+        $data = User::where('appnum',$student->appnum)->first();
+        if ($data){
+
+            $data->update([
+                'email' => $student->email,
+            ]);
+        }
+
 
         return redirect('/application')->with('success', 'Student has been Updated');
     }

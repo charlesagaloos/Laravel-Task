@@ -69,7 +69,8 @@ Route::post('/new-admin','AdminsController@adminstore')->name('admin.store');
 
 
 
-
+//search
+Route::get('/search','AdminsController@search')->name('admin.search');
 
 
 //students when login
