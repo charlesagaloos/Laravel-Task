@@ -4,7 +4,7 @@
 
 <section class="content">
     <div class="row">
-      <div class="col-xs-12">
+      <div style="margin:auto; width:500px;">
         <div class="box">
 
 
@@ -23,7 +23,7 @@
                             <p>{{ $message }}</p>
                         </div>
             @endif
-            <div class="box box-info">
+            <div class="box box-info" style="width:100%; margin:auto; padding:20px;"   >
                 <div class="box-header with-border">
                 <h3 class="box-title">Create New Admin</h3>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="row">
                     <form form="{{ route('admin.store') }}" method="POST">
                         @csrf
-                        <div class="col-sm-4">
+                        <div class="col-sm-12">
                             <div class="left">
                                 <strong>First Name</strong>
                                 <input type="text" name="firstname" class="form-control" placeholder="firstname" required>
@@ -78,9 +78,9 @@
                                 <input type="text" name="address" class="form-control" placeholder="Address" required>
                             </div>
                         <br>
-                        <div class="left">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
+                        <div class="center">
+                            <button style= "margin:auto; width:100%; display:block;"type="submit" class="btn btn-success">Submit</button>
+                        </div>
                         </div>
                     </form>
                 </div>

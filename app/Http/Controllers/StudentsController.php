@@ -40,18 +40,20 @@ class StudentsController extends Controller
 
     public function dashboard()
     {
+        $students = Students::where('appnum', '=',Auth::user()->appnum)->get();
         $announcement = Announcement::all();
         //dd($announcement);
-        return view('student.index',['anc'=>$announcement]);
+        return view('student.index',['anc'=>$announcement],['students' =>$students]);
     }
+
 
     public function profile(){
     //    dd(Auth::user());
 
-    $data = Students::where('appnum', '=',Auth::user()->appnum)->get();
+    $students = Students::where('appnum', '=',Auth::user()->appnum)->get();
     // dd($data);
 
-    return view('student.profile',['data' =>$data]);
+    return view('student.profile',['students' =>$students]);
 
     }
 
@@ -60,43 +62,6 @@ class StudentsController extends Controller
     }
 
 
-
-
-    // public function updateprofile(Request $request,$id){
-
-    //     $id = session()->get('appnum');
-    //     dd($id);
-    //     $this->validate($request,[
-    //         'profilepic.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ]);
-
-    //     if($request->hasfile('profilepic'))
-    //     {
-
-    //         if($files = $request->file('profilepic')){
-
-    //                 $image_name = md5(rand(1000,10000));
-    //                 $ext = strtolower($files->getClientOriginalExtension());
-    //                 $image_full_name = $image_name.'.'.$ext;
-    //                 $upload_path = 'images/';
-    //                 $image_url = $upload_path.$image_full_name;
-    //                 $files->move('images/profilepic',$image_full_name);
-    //                 $image = $image_url;
-
-    //         }
-
-    //         $data = Students::find($id);
-
-    //         $currentpic = str_replace($data->profile_pic,'',$image);
-    //         $data->profile_pic = $image;
-    //         $data->phonenumber =$request->input('contact');
-    //         $data->email =$request->input('email');
-    //         $data->address =$request->input('address');
-    //         $data->update();
-    //         // return back()->with('success','Successfully Updated!');
-    //         return redirect('/students/profile')->with('success', 'Student has been Updated');
-    //     }
-    // }
 
     public function updateprofile(Request $request,$id){
 

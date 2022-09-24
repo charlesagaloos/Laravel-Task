@@ -152,7 +152,7 @@ class AdminsController extends Controller
             'contact' => $request['contact'],
             'email' => $request['email'],
             'address' => $request['address'],
-            // 'profile_pic' => 'images/admin_user.png',
+            'profile_pic' => 'images/admin_user.png',
             'created_at' => now(),
         ]);
 
@@ -297,10 +297,33 @@ class AdminsController extends Controller
 
     }
 
-     public function dashboard(){
 
-        return view('dashboard');
+    public function dashboard(){
+        //linechart
+
+        $data['lineChart'] = Students::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"),\DB::raw("MONTHNAME(created_at) as month_name"),\DB::raw('max(created_at) as createdAt'))
+        ->whereYear('created_at', date('Y'))
+        ->groupBy('day_name')
+        ->groupBy('month_name')
+        ->orderBy('createdAt')
+        ->get();
+
+
+        //piechart
+        $applicants= DB::table('students')
+        ->select(
+         DB::raw('gender as gender'),
+         DB::raw('count(*) as number'))
+        ->groupBy('gender')
+        ->get();
+      $array[] = ['Gender', 'Number'];
+      foreach($applicants as $key => $value)
+      {
+       $array[++$key] = [$value->gender, $value->number];
+      }
+      return view('dashboard',$data)->with('gender', json_encode($array));
     }
+
 
 
     public function announcement(Request $request){

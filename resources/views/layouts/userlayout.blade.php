@@ -112,7 +112,7 @@
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> --}}
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    @include('inc.header')
+    @include('inc.userheader')
 
 
       <aside class="main-sidebar">

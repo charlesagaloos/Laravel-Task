@@ -31,7 +31,7 @@
   </section>
 
 <section class="content">
-    @foreach ($data as $student)
+    @foreach ($students as $student)
     <div class="row">
       <div class="col-md-6">
         <div class="box">

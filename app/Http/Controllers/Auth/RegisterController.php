@@ -106,6 +106,7 @@ class RegisterController extends Controller
             'contact' => $data['contact'],
             'email' => $data['email'],
             'address' => $data['address'],
+            'profile_pic' => 'images/admin_user.png',
             'created_at' => now(),
         ]);
 

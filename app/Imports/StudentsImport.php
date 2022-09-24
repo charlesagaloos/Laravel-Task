@@ -65,6 +65,7 @@ class StudentsImport implements ToModel,WithHeadingRow,WithValidation,SkipsOnErr
             'contact' => $row["contact"],
             'email' => $row["email"],
             'address' => $row["address"],
+            'profile_pic' => 'images/admin_user.png',
 
         ]);
     }
