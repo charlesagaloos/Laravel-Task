@@ -34,6 +34,21 @@
             opacity: 0;
             cursor: pointer;
         }
+        .slider-img{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top:3%;
+
+        }
+
+
+        .custom-announcement{
+            /* height:400px; */
+        }
+        .slider-text{
+            background-color:#35443585 !Important;
+        }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

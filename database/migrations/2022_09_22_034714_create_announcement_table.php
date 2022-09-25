@@ -18,6 +18,8 @@ class CreateAnnouncementTable extends Migration
             $table->string('title');
             $table->string('content');
             $table->string('filename')->nullable(true);
+            $table->string('start_date');
+            $table->string('end_date');
             $table->timestamps();
         });
     }
