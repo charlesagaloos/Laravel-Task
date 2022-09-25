@@ -49,6 +49,10 @@
         .slider-text{
             background-color:#35443585 !Important;
         }
+        .carousel-caption{
+            background-color:#35443585;
+            color: white;
+        }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
