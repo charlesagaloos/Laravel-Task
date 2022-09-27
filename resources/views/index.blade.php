@@ -1,17 +1,15 @@
 @extends('layouts.layout')
 @section('content')
 
-<section class="content-header">
-    <h1>
-        Student Application
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li class="active">Student Application</li>
-    </ol>
-</section>
 
 <section class="content">
+    <div class="asd"style="width:100%; float:left; margin-top:5%;">
+        <ol class="breadcrumb" style="float: right;">
+            <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Line Chart</li>
+            <li class="active">Student Application</li>
+        </ol>
+    </div>
     <div class="row">
       <div class="col-xs-12">
         <div class="box">

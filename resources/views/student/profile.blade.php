@@ -20,18 +20,18 @@
             </div>
             @endif
 
-<section class="content-header">
-    <h1>
-      User Profile
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{{ url('/students/dashboard/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li class="active">User profile</li>
-    </ol>
-  </section>
 
 <section class="content">
+    <div class="asd"style="width:100%; float:left; margin-top:5%;">
+        <ol class="breadcrumb" style="float: right;">
+          <li><a href="{{ url('/students/dashboard/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li class="active">User profile</li>
+        </ol>
+      </div>
     @foreach ($students as $student)
+    <div class="asdas">
+        <h1>User Profile</h1>
+    </div>
     <div class="row">
       <div class="col-md-6">
         <div class="box">

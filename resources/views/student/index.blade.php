@@ -1,15 +1,16 @@
 @extends('layouts.userlayout')
 @section('content')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
 
 <style>
     body{
-        overflow-y: hidden !important
+        /* overflow-y: hidden !important */
+        background-color: #001c42;
     }
 
     .instagram{
-        width:50%;
+        width:30%;
         height:100%;
         margin:auto;
         margin-bottom:2rem;
@@ -18,11 +19,13 @@
 
     }
 
+
 .content-scrollable{
-    height:700px;
+    /* height:750px; */
     width:100%;
     position: relative;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    background-color: #001c42;
 
   }
   .masonry{
@@ -51,8 +54,9 @@
     height:700px;
     overflow-y: scroll;
     border-radius: 25px;
-    border: 2px solid rgba(255,255,255,.6);
+    border: 2px solid rgba(20,87,179,.6);
     padding: 15px;
+    background-color:rgba(255,255,255,.2);
 
   }
 
@@ -60,13 +64,13 @@
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
-	background-color: #F5F5F5;
+	background-color: #001c42;
 }
 
 #style-2::-webkit-scrollbar
 {
-	width: 12px;
-	background-color: #F5F5F5;
+	width: 10px;
+	background-color: #001c42;
 }
 
 #style-2::-webkit-scrollbar-thumb
@@ -119,6 +123,7 @@
     margin-right:10%;
     margin-bottom: 2rem;
     box-shadow: 1px 5px 5px rgba(0,0,0,.6);
+
   }
 
 
@@ -131,9 +136,16 @@
   .myCarousel{
 
   }
+  .hymn{
+    text-align:center;
+    width:auto;
+    margin-top:43%;
+  }
+  .video-hymn{
+    margin-bottom: 2rem;
+  }
 
 </style>
-
     <div class="content-scrollable">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -161,7 +173,7 @@
                 </a>
             </div>
         </div>
-        <div class="announcement" style="text-align: left; padding-left:20px;">
+        <div class="announcement" style="text-align:left; padding-left:20px; background:#0049ad; color:white;">
             <h1>Announcements!!!</h1>
         </div>
         <div class="instagram">
@@ -208,7 +220,7 @@
                 </div>
             </div>
         </div>
-        <div class="enroll" style="text-align: center;">
+        <div class="enroll" style="text-align: center;background:#0049ad; color:white;">
             <h1>ENROLL NOW!!!</h1>
         </div>
         <div class="portal">
@@ -239,6 +251,16 @@
             <div class="img">
                 <img src="{{url('/images/enroll.jfif')}}" alt="cover" style="width:100%; object-fit:cover;">
               </div>
+        </div>
+        <div class="hymn">
+            <div class="hymn-header" style="margin:auto;background:#0049ad; color:white;">
+                <h1>ISCP HYMN</h1>
+            </div>
+            <div class="video-hymn">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/aXK8Is-zBcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+
         </div>
     </div>
 

@@ -137,7 +137,7 @@
     @include('inc.userheader')
 
 
-      <aside class="main-sidebar">
+      <aside class="main-sidebar" style="position:fixed;">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
@@ -182,7 +182,9 @@
                   <li><a href="{{ url('/students/profile/') }}"><i class="fa-regular fa-user"></i> <span>Profile</span></li>
                   </a>
                 </li>
-              </li>
+            </li>
+
+
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -191,13 +193,13 @@
     <main class="content-wrapper" style="min-height: 50%;">
         @yield('content')
     </main>
-    <footer class="main-footer">
+    {{-- <footer class="main-footer">
             <div class="pull-right hidden-xs">
               <b>Version</b> 2.4.18
             </div>
             <strong>Copyright &copy; 2022-2025 <a href="https://adminlte.io">ISCP</a>.</strong> All rights
             reserved.
-          </footer>
+    </footer> --}}
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> --}}
 

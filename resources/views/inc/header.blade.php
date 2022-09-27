@@ -1,6 +1,6 @@
-<header class="main-header">
+<header class="main-header"style="position: fixed; width:100%;">
     <!-- Logo -->
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="logo">
+    <a href="https://www.iscphilippines.com/home" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>IS</b>CP</span>
       <!-- logo for regular state and mobile devices -->

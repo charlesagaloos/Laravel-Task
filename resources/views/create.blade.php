@@ -17,20 +17,17 @@
                 <p>{{ $message }}</p>
             </div>
 @endif
-<section class="content-header">
-    <h1>
-        <br>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li class="active">New Admin
 
-      </li>
-    </ol>
-</section>
 
 <section class="content">
-    <div class="row">
+    <div class="asd"style="width:100%; float:left; margin-top:5%;">
+        <ol class="breadcrumb" style="float: right;">
+            <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Line Chart</li>
+            <li class="active">New Admin
+        </ol>
+    </div>
+    <div class="row" style="margin-top:5%;">
       <div style="margin:auto; width:1000px; margin-top:70px;">
         <div class="box">
 

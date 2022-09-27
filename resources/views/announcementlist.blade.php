@@ -1,14 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-<section class="content-header">
-    <h1>
-        <br>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li class="active">Announcement List</li>
-    </ol>
-</section>
+
 
 {{-- <button class="button-29" role="button">Create Announcement</button> --}}
 <div class="space">
@@ -32,11 +24,18 @@
       <p>{{ $message }}</p>
   </div>
 @endif
+<div class="asd"style="width:100%; float:left; margin-top:5%;">
+    <ol class="breadcrumb" style="float: right;">
+        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Line Chart</li>
+        <li class="active">Announcement List</li>
+    </ol>
+</div>
 <div class="container">
     <div class="row">
         <br>
         <br>
-        <div class="justify" style="text-align: center; font-size:30px; background-color:lightblue;">
+        <div class="justify" style="text-align: center; font-size:30px;">
           <label> Announcement</label>
         </div>
       </div>
