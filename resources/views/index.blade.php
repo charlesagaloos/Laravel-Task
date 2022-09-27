@@ -170,8 +170,15 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Gender</strong>
-                                            <input id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" onchange="validate()">
-
+                                            {{-- <input id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" onchange="validate()"> --}}
+                                            <div class="col-90">
+                                                <input type="radio" id="male" name="gender" value="Male" @if (old('gender'))
+                                                    checked
+                                                @endif/>Male
+                                                <input type="radio" id="female" name="gender" value="Female" @if (old('gender'))
+                                                checked
+                                            @endif/>Female
+                                            </div>
                                             @error('gender')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -182,7 +189,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Birthday</strong>
-                                            <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange="validate()">
+                                            <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange="validate()">
 
                                             @error('birthday')
                                                 <span class="invalid-feedback" role="alert">

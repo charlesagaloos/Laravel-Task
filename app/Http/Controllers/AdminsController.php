@@ -117,9 +117,10 @@ class AdminsController extends Controller
             'gender' => 'required',
             'birthday' => 'required',
             'birthplace' => 'required',
-            'contact' => 'required',
-            'email' => 'required',
+            'contact' => 'required|numeric|phone_number|size:11',
             'address' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $isEmpty = User::count();
@@ -311,9 +312,8 @@ class AdminsController extends Controller
 
     public function linecharts(){
 
-        $data['lineChart'] = Students::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"),\DB::raw("MONTHNAME(created_at) as month_name"),\DB::raw('max(created_at) as createdAt'))
+        $data['lineChart'] = Students::select(\DB::raw("COUNT(*) as count"),\DB::raw("MONTHNAME(created_at) as month_name"),\DB::raw('max(created_at) as createdAt'))
         ->whereYear('created_at', date('Y'))
-        ->groupBy('day_name')
         ->groupBy('month_name')
         ->orderBy('createdAt')
         ->get();
@@ -328,9 +328,8 @@ class AdminsController extends Controller
     public function dashboard(){
         //linechart
 
-        $data['lineChart'] = Students::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"),\DB::raw("MONTHNAME(created_at) as month_name"),\DB::raw('max(created_at) as createdAt'))
+        $data['lineChart'] = Students::select(\DB::raw("COUNT(*) as count"), \DB::raw("MONTHNAME(created_at) as month_name"),\DB::raw('max(created_at) as createdAt'))
         ->whereYear('created_at', date('Y'))
-        ->groupBy('day_name')
         ->groupBy('month_name')
         ->orderBy('createdAt')
         ->get();
@@ -483,14 +482,19 @@ class AdminsController extends Controller
     public function adminstore(Request $request){
 
         $this->validate($request, [
+            'firstname' => ['required', 'string', 'max:255'],
+            'middlename' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'firstname' => 'required',
             'middlename' => 'required',
             'lastname' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
             'birthplace' => 'required',
-            'contact' => 'required',
-            'email' => 'required',
+            'contact' => 'required|numeric|size:11',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => 'required',
         ]);
         $Year = date("Y");

@@ -56,7 +56,7 @@
 
                                     <div class="left">
                                         <strong>Birthday</strong>
-                                        <input type="text" name="birthday" class="form-control" value="{{ $student->birthday }}" placeholder="Birthday" disabled>
+                                        <input type="date" name="birthday" class="form-control" value="{{ $student->birthday }}" placeholder="Birthday" disabled>
                                     </div>
 
                                     <div class="left">

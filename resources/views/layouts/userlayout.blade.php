@@ -38,7 +38,7 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            margin-top:3%;
+            /* margin-top:3%; */
 
         }
 
@@ -50,8 +50,11 @@
             background-color:#35443585 !Important;
         }
         .carousel-caption{
-            background-color:#35443585;
+            background-color:rgba(255, 255, 255, 0.2);
             color: white;
+            width:25%;
+
+            margin:auto;
         }
     </style>
     <meta charset="utf-8">
@@ -75,8 +78,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/c/c9/Seal_of_the_International_State_College_of_the_Philippines.png" type="image/icon type">
+    <title>ISCP Student Portal</title>
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> --}}
 
     {{-- fonts --}}
@@ -275,6 +278,13 @@
     });
 
 });
+
+$(document).ready(function () {
+    if (!$.browser.webkit) {
+        $('.wrapper').html('<p>Sorry! Non webkit users. :(</p>');
+    }
+});
+
 
     </script>
 </html>

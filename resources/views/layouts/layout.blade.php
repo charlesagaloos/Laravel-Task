@@ -22,7 +22,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/c/c9/Seal_of_the_International_State_College_of_the_Philippines.png" type="image/icon type">
+    <title>ISCP Admin Portal</title>
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> --}}
 
     {{-- fonts --}}

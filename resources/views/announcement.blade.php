@@ -77,7 +77,7 @@
       </div>
 
       <div class="input-group control-group increment" style="margin-top:10px;" >
-        <input type="file" name="filename[]" multiple class="form-control" style="background-color:transparent; border:none;">
+        <input type="file" name="filename[]" multiple class="form-control" style="background-color:transparent; border:none;" multiple>
         <div class="input-group-btn">
         </div>
       </div>

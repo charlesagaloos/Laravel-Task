@@ -41,62 +41,62 @@
                 @method('PUT')
 
                   <!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{ URL::to($student->profile_pic) }}" alt="User profile picture">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="{{ URL::to($student->profile_pic) }}" alt="User profile picture">
 
-              <div class="button-wrapper">
-                <span class="label">
-                  Change Photo
-                </span>
+                            <div class="button-wrapper">
+                                <span class="label">
+                                Change Photo
+                                </span>
 
-                  <input type="file" name="profile_pic[]" id="upload" class="upload-box" placeholder="Upload File" required>
+                                <input type="file" name="profile_pic[]" id="upload" class="upload-box" placeholder="Upload File" required>
 
-              </div>
+                            </div>
 
-              <h3 class="profile-username text-center">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h3>
+                                <h3 class="profile-username text-center">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h3>
 
-                {{-- <a href="#" class="btn btn-warning btn-block"><i class="fa-solid fa-upload"></i> </i><b>Change Picture </b></a> --}}
-                {{-- <input type="file" class="btn btn-warning"> --}}
-              <div class="box-body">
-                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                                {{-- <a href="#" class="btn btn-warning btn-block"><i class="fa-solid fa-upload"></i> </i><b>Change Picture </b></a> --}}
+                                {{-- <input type="file" class="btn btn-warning"> --}}
+                            <div class="box-body">
+                                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
 
-                <p class="text-muted">
-                  International State Campus of The Philippines
-                </p>
+                                <p class="text-muted">
+                                International State Campus of The Philippines
+                                </p>
 
-                <hr>
+                                <hr>
 
-                <strong><i class="fa-solid fa-venus-mars"></i> Gender</strong>
+                                <strong><i class="fa-solid fa-venus-mars"></i> Gender</strong>
 
-                <p class="text-muted">
-                    {{ $student->gender}}
-                </p>
+                                <p class="text-muted">
+                                    {{ $student->gender}}
+                                </p>
 
-                <hr>
+                                <hr>
 
-                <strong><i class="fa-solid fa-earth-americas"></i> Birthplace</strong>
+                                <strong><i class="fa-solid fa-earth-americas"></i> Birthplace</strong>
 
-                <p class="text-muted">
-                    {{ $student->birthplace}}
-                </p>
+                                <p class="text-muted">
+                                    {{ $student->birthplace}}
+                                </p>
 
-                <hr>
-              </div>
+                                <hr>
+                            </div>
 
-            </div>
-            <div class="button">
-                <button type="submit" class="btn btn-success btn-block">Save Profile</button>
-              </div>
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="btn btn-success btn-block">Save Profile</button>
+                    </div>
 
-              {{-- <div class="left">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div> --}}
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+                    {{-- <div class="left">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div> --}}
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
 
-        </form>
+            </form>
         </div>
       </div>
 

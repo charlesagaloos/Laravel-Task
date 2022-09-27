@@ -18,7 +18,7 @@
   @endif
 
   <div class="justify" style="text-align: center; font-size:30px; background-color:lightblue;">
-    <label>Create Announcement</label>
+    <label>Edit Announcement</label>
   </div>
   <div class="container">
     <div class="row">
@@ -65,7 +65,7 @@
       </div>
 
       <div class="input-group control-group increment" style="margin-top:10px;" >
-        <input type="file" name="filename[]" multiple class="form-control" style="background-color:transparent; border:none;" required>
+        <input type="file" name="filename[]" multiple class="form-control" style="background-color:transparent; border:none;" multiple>
         <div class="input-group-btn">
         </div>
       </div>
@@ -75,7 +75,7 @@
 
       <div class="row">
         <div class="col-sm-12" style="text-align: right;margin-top:20px;">
-          <button type="submit" class="btn btn-primary delete-user">Submit
+          <button type="submit" class="btn btn-success delete-user">Update
 
         </button>
         </div>

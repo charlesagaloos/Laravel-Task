@@ -51,7 +51,6 @@ class StudentsController extends Controller
     //    dd(Auth::user());
 
     $students = Students::where('appnum', '=',Auth::user()->appnum)->get();
-    // dd($data);
 
     return view('student.profile',['students' =>$students]);
 
@@ -100,7 +99,6 @@ class StudentsController extends Controller
             }
             else{
                 $currentfile .= '|'. implode('|',$image);
-
             }
 
          }
@@ -112,45 +110,5 @@ class StudentsController extends Controller
             $studentdata->update();
             return redirect('/students/profile')->with('success', 'Profile Updated');
     }
-
-    // public function updateprofile(Request $request,$id){
-    //     // $id = session()->get('appnum');
-    //     $studentdata = Students::find($id);
-    //     $userid = $studentdata->appnum;
-    //     // dd($userid);
-
-    //     $this->validate($request,[
-    //         'profile_pic.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ]);
-
-
-    //     if($request->hasfile('profile_pic'))
-    //     {
-
-    //         if($files = $request->file('profile_pic')){
-
-    //                 $image_name = md5(rand(1000,10000));
-    //                 $ext = strtolower($files->getClientOriginalExtension());
-    //                 $image_full_name = $image_name.'.'.$ext;
-    //                 $upload_path = 'images/';
-    //                 $image_url = $upload_path.$image_full_name;
-    //                 $files->move('images/profile_pic',$image_full_name);
-    //                 $image = $image_url;
-
-    //         }
-
-    //         $data = Students::find($id);
-
-    //         $currentpic = str_replace($data->profile_pic,'',$image);
-    //         $data->profile_pic = $image;
-    //         $data->middlename =$request->input('contact');
-    //         $data->email =$request->input('email');
-    //         $data->address =$request->input('address');
-    //         $data->update();
-
-    //         return redirect('/students/profile')->with('success', 'Profile Updated');
-    //     }
-    // }
-
 
 }

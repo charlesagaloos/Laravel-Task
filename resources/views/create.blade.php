@@ -50,20 +50,20 @@
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>First Name</strong>
-                                        <input type="text" name="firstname" class="form-control" placeholder="firstname" required>
+                                        <input type="text" name="firstname" class="form-control" placeholder="firstname" required placeholder="firstname">
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Middle Name</strong>
-                                        <input type="text" name="middlename" class="form-control" placeholder="middle name" required>
+                                        <input type="text" name="middlename" class="form-control" placeholder="middle name" required placeholder="middlename">
                                     </div>
 
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Last Name</strong>
-                                        <input type="text" name="lastname" class="form-control" placeholder="lastname" required>
+                                        <input type="text" name="lastname" class="form-control" placeholder="lastname" required placeholder="lastname">
                                     </div>
 
                                 </div>
@@ -74,19 +74,27 @@
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Gender</strong>
-                                        <input type="text" name="gender" class="form-control" placeholder="Gender" required>
+                                        {{-- <input type="text" name="gender" class="form-control" placeholder="Gender" required> --}}
+                                        <div class="col-90">
+                                            <input type="radio" id="male" name="gender" value="Male" @if (old('gender'))
+                                                checked
+                                            @endif/>Male
+                                            <input type="radio" id="female" name="gender" value="Female" @if (old('gender'))
+                                            checked
+                                        @endif/>Female
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Birthday</strong>
-                                        <input type="text" name="birthday" class="form-control" placeholder="Birthday" required>
+                                        <input type="date" name="birthday" class="form-control" placeholder="Birthday" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Birth Place</strong>
-                                        <input type="text" name="birthplace" class="form-control" placeholder="Birth Place" required>
+                                        <input type="text" name="birthplace" class="form-control" placeholder="Birth Place" required placeholder="birthplace">
                                     </div>
                                 </div>
                             </div>
@@ -94,20 +102,20 @@
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Contact</strong>
-                                        <input type="text" name="contact" class="form-control" placeholder="Contact" required>
+                                        <input id="contact" type="tel" class="form-control" name="contact"  onkeypress="return restrictAplhabets(e)" maxlength=11 placeholder="only 11 digits are allowed">
                                     </div>
 
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Email</strong>
-                                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required placeholder="email address">
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Address</strong>
-                                        <input type="text" name="address" class="form-control" placeholder="Address" required>
+                                        <input type="text" name="address" class="form-control" placeholder="Address" required placeholder="address">
                                     </div>
                                 </div>
                             </div>
