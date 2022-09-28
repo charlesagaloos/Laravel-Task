@@ -1,9 +1,19 @@
 @extends('layouts.layout')
 @section('content')
 @include('sweetalert::alert')
+
+
+
 <section class="content">
-    <div class="row">
-      <div style="margin:auto; width:500px;">
+    <div class="asd"style="width:100%; float:left; margin-top:5%;">
+        <ol class="breadcrumb" style="float: right;">
+            <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Student Application</li>
+            <li class="active">Edit Student</li>
+        </ol>
+    </div>
+    <div class="row" style="margin-top:5%;">
+      <div style="margin:auto; width:485px;">
         <div class="box">
 
 
