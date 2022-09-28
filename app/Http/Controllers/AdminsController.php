@@ -14,6 +14,7 @@ use App\Admin;
 use DB;
 use PDF;
 use Auth;
+use Carbon\Carbon;
 use Storage;
 
 use Redirect,Response;
@@ -71,16 +72,6 @@ class AdminsController extends Controller
 		return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
 	}
 
-    public function search()
-	{
-
-        $students = Students::paginate(4);
-		$search_text = $_GET['query'];
-        $find = Students::where('firstname','LIKE', '%'.$search_text.'%')->with('category')->get();
-        return view('search',compact('find'));
-	}
-
-
 
     public function application()
 	{
@@ -117,10 +108,9 @@ class AdminsController extends Controller
             'gender' => 'required',
             'birthday' => 'required',
             'birthplace' => 'required',
-            'contact' => 'required|numeric|phone_number|size:11',
+            'contact' => 'required|numeric',
             'address' => 'required',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $isEmpty = User::count();
@@ -162,6 +152,7 @@ class AdminsController extends Controller
             'gender' => $request['gender'],
             'birthday' => $request['birthday'],
             'birthplace' => $request['birthplace'],
+            'age' => $request['agevalue'],
             'contact' => $request['contact'],
             'email' => $request['email'],
             'address' => $request['address'],
@@ -402,6 +393,7 @@ class AdminsController extends Controller
     public function displayAnnouncements()
 	{
         $image = Announcement::paginate(4);
+
 		// return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
         return view('announcementlist',['anc'=>$image])->with('i', (request()->input('page', 1) - 1) * 4);
 	}
@@ -437,7 +429,7 @@ class AdminsController extends Controller
         ]);
         $annc = Announcement::find($id);
 
-        $currentfile = $annc->file;
+        $currentfile = $annc->filename;
 
         if($request->hasfile('filename'))
          {
@@ -455,7 +447,7 @@ class AdminsController extends Controller
             }
 
 
-            if($annc->file == "")
+            if($annc->filename == "")
             {
                 $currentfile .= implode('|',$image);
             }
@@ -486,15 +478,11 @@ class AdminsController extends Controller
             'middlename' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'firstname' => 'required',
-            'middlename' => 'required',
-            'lastname' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
             'birthplace' => 'required',
-            'contact' => 'required|numeric|size:11',
+            'contact' => 'required|numeric',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => 'required',
         ]);
         $Year = date("Y");
@@ -539,6 +527,7 @@ class AdminsController extends Controller
             'gender' => $request['gender'],
             'birthday' => $request['birthday'],
             'birthplace' => $request['birthplace'],
+            'age' => $request['agevalue'],
             'contact' => $request['contact'],
             'email' => $request['email'],
             'address' => $request['address'],

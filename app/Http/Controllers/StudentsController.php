@@ -11,6 +11,7 @@ use App\Students;
 use App\Announcement;
 use App\User;
 use DB;
+use Illuminate\Support\Carbon;
 use PDF;
 
 use Redirect,Response;
@@ -41,8 +42,11 @@ class StudentsController extends Controller
     public function dashboard()
     {
         $students = Students::where('appnum', '=',Auth::user()->appnum)->get();
-        $announcement = Announcement::all();
-        //dd($announcement);
+        $today = Carbon::now()->format('Y-m-d');
+
+        $announcement = Announcement::whereRaw("'$today' >= start_date and '$today' <= end_date")
+        ->orderBy('id', 'ASC')->get();
+
         return view('student.index',['anc'=>$announcement],['students' =>$students]);
     }
 

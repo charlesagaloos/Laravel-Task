@@ -48,15 +48,20 @@
     box-shadow: 1px 5px 5px rgba(0,0,0,.6);
   }
   .scrollable{
-    /* height:500px;
-    margin:auto;
-    overflow-y: scroll; */
-    height:700px;
+
+    /* height:700px;
     overflow-y: scroll;
     border-radius: 25px;
     border: 2px solid rgba(20,87,179,.6);
     padding: 15px;
+    background-color:rgba(255,255,255,.2); */
+    height:700px;
+    overflow-y: scroll;
+    border-radius: 25px;
+    border: 2px solid rgba(20,87,179,.6);
+    padding: 10px;
     background-color:rgba(255,255,255,.2);
+
 
   }
 
@@ -144,7 +149,6 @@
   .video-hymn{
     margin-bottom: 2rem;
   }
-
 </style>
     <div class="content-scrollable">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -197,7 +201,7 @@
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <p>Posted At: {{ date('M d, Y | h:i a', strtotime($a->start_date))}}</p>
+                                <p>Posted At: {{ $a->start_date }}</p>
 
                             </div>
                         </div>
@@ -252,15 +256,14 @@
                 <img src="{{url('/images/enroll.jfif')}}" alt="cover" style="width:100%; object-fit:cover;">
               </div>
         </div>
+
         <div class="hymn">
-            <div class="hymn-header" style="margin:auto;background:#0049ad; color:white;">
-                <h1>ISCP HYMN</h1>
+            <div class="hymn-header" style="background:#0049ad; color:white;">
+                <h1 style=" text-align:center; position: relative; transform:translateX(-35%);">HYMN</h1>
             </div>
-            <div class="video-hymn">
+            <div class="video-hymn" style="margin-top:2%;">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/aXK8Is-zBcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-
-
         </div>
     </div>
 

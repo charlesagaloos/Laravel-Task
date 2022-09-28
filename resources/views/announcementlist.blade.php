@@ -8,22 +8,6 @@
 </div>
 
 <div class="create-announcement">
-  @if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-      @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-  @endif
-
-  @if ($message = Session::get('success'))
-  <div class="alert alert-success">
-      <p>{{ $message }}</p>
-  </div>
-@endif
 <div class="asd"style="width:100%; float:left; margin-top:5%;">
     <ol class="breadcrumb" style="float: right;">
         <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -39,6 +23,22 @@
           <label> Announcement</label>
         </div>
       </div>
+      @if (count($errors) > 0)
+      <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
+
+      @if ($message = Session::get('success'))
+      <div class="alert alert-success">
+          <p>{{ $message }}</p>
+      </div>
+    @endif
 
      <div class="container-fluid">
         <table id="example1" class="table table-bordered table-striped" style="text-align: center;">

@@ -24,6 +24,7 @@ class CreateAdminTable extends Migration
             $table->string('gender');
             $table->string('birthday');
             $table->string('birthplace');
+            $table->string('age');
             $table->string('contact')->unique();
             $table->string('email')->unique();
             $table->string('address');

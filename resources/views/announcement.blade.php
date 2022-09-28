@@ -2,40 +2,38 @@
 @section('content')
 
 {{-- <button class="button-29" role="button">Create Announcement</button> --}}
-<div class="space">
-    <br>
-</div>
 
-<div class="create-announcement">
-  @if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-      @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-  @endif
-
-  <div class="asd"style="width:100%; float:left; margin-top:5%;">
+<div class="asd"style="width:100%; float:left; margin-top:5%;">
     <ol class="breadcrumb" style="float: right;">
         <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Line Chart</li>
         <li class="active">Create Announcement</li>
     </ol>
 </div>
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+  <strong>Whoops!</strong> There were some problems with your input.<br><br>
+  <ul>
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+</div>
+@endif
   <div class="col-sm-12" style="text-align: center; font-size:30px; background-color:lightblue;">
 
-    <label>Create Announcement</label>
-      </div>
-  </div>
+        <label>Create Announcement</label>
+    </div>
+
   <div class="container">
+    <div class="space">
+        <br>
+    </div>
+
+    <div class="create-announcement">
     <div class="row">
         <br>
         <br>
-
-
 
      <!-- -->
      <form method="post" action="{{ route('upload-announce')}}" enctype="multipart/form-data">

@@ -1,7 +1,20 @@
 @extends('layouts.userlayout')
 @section('content')
 
-@if ($message = Session::get('success'))
+
+<section class="content">
+
+    <div class="asd"style="width:100%; float:left; margin-top:5%;">
+        <ol class="breadcrumb" style="float: right;">
+          <li><a href="{{ url('/students/dashboard/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li class="active">User profile</li>
+        </ol>
+      </div>
+    @foreach ($students as $student)
+    <div class="asdas">
+        <h1>User Profile</h1>
+    </div>
+    @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
@@ -19,22 +32,10 @@
               </ul>
             </div>
             @endif
-
-
-<section class="content">
-    <div class="asd"style="width:100%; float:left; margin-top:5%;">
-        <ol class="breadcrumb" style="float: right;">
-          <li><a href="{{ url('/students/dashboard/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          <li class="active">User profile</li>
-        </ol>
-      </div>
-    @foreach ($students as $student)
-    <div class="asdas">
-        <h1>User Profile</h1>
-    </div>
     <div class="row">
       <div class="col-md-6">
         <div class="box">
+
 
             <form action="{{ route('profile.update', $student->id) }}" method="POST" enctype="multipart/form-data">
                 {{ @csrf_field() }}
@@ -104,65 +105,62 @@
         <div class="box">
 
           <!-- About Me Box -->
-          <div class="box box-primary">
-            <div class="box-body">
-                <br>
-                <strong><i class="fa fa-location-dot margin-r-5"></i> Address</strong>
-
-                <p class="text-muted">
-                    {{ $student->address}}
-                </p>
-
-                <hr>
+            <div class="box box-primary">
                 <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> Contact</strong>
+                        <br>
+                        <strong><i class="fa fa-location-dot margin-r-5"></i> Address</strong>
 
-                    <p class="text-muted">
-                        {{ $student->contact}}
+                        <p class="text-muted">
+                            {{ $student->address}}
+                        </p>
+
+                        <hr>
+                        <div class="box-body">
+                            <strong><i class="fa fa-book margin-r-5"></i> Contact</strong>
+
+                            <p class="text-muted">
+                                {{ $student->contact}}
+                            </p>
+
+                            <hr>
+                    {{-- <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
+                    <p>
+                        <span class="label label-danger">UI Design</span>
+                        <span class="label label-success">Coding</span>
+                        <span class="label label-info">Javascript</span>
+                        <span class="label label-warning">PHP</span>
+                        <span class="label label-primary">Node.js</span>
                     </p>
 
+                    <hr> --}}
+
+                    <strong><i class="fa-solid fa-envelope"></i> Email</strong>
+
+                    <p class="text-muted">
+                        {{ $student->email}}
+                    </p>
                     <hr>
-              {{-- <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-              <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
-              </p>
-
-              <hr> --}}
-
-              <strong><i class="fa-solid fa-envelope"></i> Email</strong>
-
-              <p class="text-muted">
-                  {{ $student->email}}
-              </p>
-              <hr>
 
 
 
-              <strong><i class="fa fa-file-invoice"></i></i> Application #</strong>
+                    <strong><i class="fa fa-file-invoice"></i></i> Application #</strong>
 
-              <p class="text-muted">
-                # {{ $student->appnum }}
-              </p>
-              <hr>
+                    <p class="text-muted">
+                        # {{ $student->appnum }}
+                    </p>
+                    <hr>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                        @endforeach
+                        @endsection
 
             </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-          @endforeach
-        @endsection
-
-    </div>
-
-
-
-</div>
+        </div>
 
 
   </section>

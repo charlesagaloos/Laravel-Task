@@ -1,12 +1,22 @@
 @extends('layouts.layout')
 @section('content')
+<style>
 
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
 
 <section class="content">
     <div class="asd"style="width:100%; float:left; margin-top:5%;">
         <ol class="breadcrumb" style="float: right;">
             <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Line Chart</li>
             <li class="active">Student Application</li>
         </ol>
     </div>
@@ -100,12 +110,6 @@
                                     </td>
                                 </tr>
                             </tbody>
-
-
-
-
-
-
                         @endforeach
                     </table>
                 </div>
@@ -132,7 +136,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>First Name</strong>
-                                            <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus onchange="validate()">
+                                            <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                             @error('firstname')
                                                 <span class="invalid-feedback" role="alert">
@@ -144,7 +148,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Middle Name</strong>
-                                            <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus onchange="validate()">
+                                            <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                             @error('middlename')
                                                 <span class="invalid-feedback" role="alert">
@@ -156,7 +160,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Last Name</strong>
-                                            <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus onchange="validate()">
+                                            <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                             @error('lastname')
                                                 <span class="invalid-feedback" role="alert">
@@ -187,8 +191,9 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Birthday</strong>
-                                            <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange="validate()">
-
+                                            <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange='agecalculator()'>
+                                            <input type='hidden' id='input_age' value="{{ old('agevalue')}}" name="agevalue">
+                                                &nbsp&nbsp&nbsp <span class='agehere'></span>
                                             @error('birthday')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -212,8 +217,8 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Contact</strong>
-                                            <input id="contact" type="text" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onchange="validate()">
-
+                                            {{-- <input id="contact" type="number" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onchange="validate()"> --}}
+                                            <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onkeypress="return onlyNumberKey(event)" maxlength=11  placeholder="only 11 digits are allowed">
                                             @error('contact')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -258,7 +263,7 @@
                 </div>
 
                             {{-- Edit STUDENT MODAL --}}
-                        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        {{-- <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -348,7 +353,7 @@
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Contact</strong>
-                                                    <input id="contact" type="text" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ $student->contact }}" onchange="validate()">
+                                                    <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ $student->contact }}" onchange="validate()">
 
                                                     @error('contact')
                                                         <span class="invalid-feedback" role="alert">
@@ -391,7 +396,7 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
+                        </div> --}}
             </div>
 
 
@@ -409,14 +414,187 @@
     <!-- /.row -->
   </section>
 
-  <script>
+<script>
     error=false
 
-    function validate()
-    {
-        if(document.custForm.name.value !='' && document.custForm.email.value !='' && document.custForm.address.value !='')
-            document.custForm.btnsave.disabled=false
-        else
-            document.custForm.btnsave.disabled=true
+function validate()
+{
+    if(document.custForm.name.value !='' && document.custForm.email.value !='' && document.custForm.address.value !='')
+        document.custForm.btnsave.disabled=false
+    else
+        document.custForm.btnsave.disabled=true
+}
+    $(document).ready(function(){
+
+        var lowerCaseLetters = /[a-z]/g;
+        var numbers = /[0-9]/g;
+        var upperCaseLetters = /[A-Z]/g;
+    //   var email_pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    //   var pattern = /[^a-zA-Z0-9\!\@\#\$\%\^\*\_\|]+/;
+      $("#register-form").submit(function(){
+        //   let name = $("#name").val();
+          let password =$("#password").val();
+          let cpass = $("#password-confirm").val();
+          let email = $("#email").val();
+
+
+
+          if(email == ""){
+            swal({
+            title: "Missing",
+            text: 'Please insert your email',
+            icon: "warning",
+            button: "OK",
+            });
+
+            return false;
+          }else if(email_pattern.test(email) && email != "")
+          {
+
+          }else{
+            swal({
+            title: "Missing",
+            text: 'Invalid Email format!',
+            icon: "warning",
+            button: "OK",
+            });
+
+              return false;
+          }
+
+
+
+               if(!password.match(lowerCaseLetters) ){
+                    swal({
+                    title: "Password pattern",
+                    text: 'Password must contain lowercase letters',
+                    icon: "warning",
+                    button: "OK",
+                   });
+                    return false;
+                }
+                 if(!password.match(upperCaseLetters) ){
+                    swal({
+                        title: "Password pattern",
+                        text: 'Password must contain uppercase letters',
+                        icon: "warning",
+                        button: "OK",
+                       });
+                        return false;
+                }
+                 if(!password.match(numbers)){
+                    swal({
+                        title: "Password pattern",
+                        text: 'Password must contain numbers',
+                        icon: "warning",
+                        button: "OK",
+                       });
+                        return false;
+                }
+
+          if(password == ""){
+            swal({
+            title: "Missing",
+            text: 'Please insert your password',
+            icon: "warning",
+            button: "OK",
+            });
+
+            return false;
+          }else if(password.length > 0 && password.length < 10){
+              swal({
+            title: "Length",
+            text: 'Atleast 10 characters',
+            icon: "warning",
+            button: "OK",
+            });
+
+              return false;
+          }
+          if(cpass == ""){
+            swal({
+            title: "Missing",
+            text: 'Please confirm your password',
+            icon: "warning",
+            button: "OK",
+            });
+
+            return false;
+          }else if(cpass != password){
+              swal({
+            title: "Warning",
+            text: 'Password did not match!',
+            icon: "warning",
+            button: "OK",
+            });
+              return false;
+          }
+
+
+
+
+      });
+
+     })
+
+
+        function onlyNumberKey(evt) {
+
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+        }
+
+        function preventNumbers(e){
+        var keyCode = (e.keyCode ? e.keyCode : e.which);
+        if(keyCode > 47 && keyCode < 58 || keyCode > 95 && keyCode < 107)
+        {
+            e.preventDefault();
+        }
     }
-</script>
+
+
+
+        function agecalculator(){
+               var dNow = new Date();
+
+            var birthdate = document.getElementById('birthday');
+            var birthday = new Date(birthdate.value);
+
+            var cmm = dNow.getMonth()+1;
+            var cdd = dNow.getDate();
+            var cyy = dNow.getFullYear();
+
+            var dd = birthday.getDate()+1;
+            var mm = birthday.getMonth()+1;
+            var yy = birthday.getFullYear();
+
+            var agebyyear = Math.abs(yy - dNow.getFullYear());
+
+            if((agebyyear > 12 && mm < cmm ) || (agebyyear > 12 && mm == cmm && dd <= cdd))
+            {
+                $(".agehere").html(agebyyear+ " years old");
+                $('#input_age').val(agebyyear);
+            }else if((agebyyear > 12 && mm > cmm ) || (agebyyear > 12 && mm == cmm && dd >= cdd)){
+                $(".agehere").html(agebyyear - 1 + " years old");
+                $('#input_age').val(agebyyear - 1);
+            }
+            else
+            {
+
+                $(".agehere").html("Underage");
+                $('#input_age').val(null);
+            }
+
+
+    }
+
+
+
+
+
+
+
+        </script>

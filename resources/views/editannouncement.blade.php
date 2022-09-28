@@ -5,27 +5,30 @@
     <br>
 </div>
 
-<div class="create-announcement">
-  @if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-      @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-  @endif
+<div class="asd"style="width:100%; float:left; margin-top:2%;">
+    <ol class="breadcrumb" style="float: right;">
+        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Line Chart</li>
+        <li class="active">Create Announcement</li>
+    </ol>
+</div>
 
-  <div class="justify" style="text-align: center; font-size:30px; background-color:lightblue;">
-    <label>Edit Announcement</label>
-  </div>
+<div class="create-announcement"style=" height:725px;">
   <div class="container">
     <div class="row">
         <br>
         <br>
-
-      </div>
+        @if (count($errors) > 0)
+    <div class="alert alert-danger" style="margin-top:10%;">
+      <strong>Whoops!</strong> There were some problems with your input.<br><br>
+      <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+    </div>
      <!-- -->
      <form method="post" action="{{ url('/announcement/update/'.$edit['id'])}}" enctype="multipart/form-data">
       @csrf
@@ -65,7 +68,7 @@
       </div>
 
       <div class="input-group control-group increment" style="margin-top:10px;" >
-        <input type="file" name="filename[]" multiple class="form-control" style="background-color:transparent; border:none;" multiple>
+        <input type="file" name="filename[]" multiple class="form-control" style="background-color:transparent; border:none;" value="{{ $edit['filename']}}">
         <div class="input-group-btn">
         </div>
       </div>

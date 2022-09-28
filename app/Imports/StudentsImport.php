@@ -22,7 +22,7 @@ class StudentsImport implements ToModel,WithHeadingRow,WithValidation,SkipsOnErr
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(   $row)
+    public function model(array $row)
     {
         //$user = $this->users->where('name', $row['name'])->where('email', $row['email'])->first();
 
