@@ -68,6 +68,14 @@
 
                                 <hr>
 
+                                <strong><i class="fa fa-user"></i> Username</strong>
+
+                                <p class="text-muted">
+                                    {{ $student->username}}
+                                </p>
+
+                                <hr>
+
                                 <strong><i class="fa-solid fa-venus-mars"></i> Gender</strong>
 
                                 <p class="text-muted">

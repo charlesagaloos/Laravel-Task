@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('content')
+
 <style>
 
     input::-webkit-outer-spin-button,
@@ -61,7 +62,7 @@ input[type=number] {
                 @endif
 
                 <div class="container-fluid">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="datatable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         {{-- <th>No.</th> --}}
@@ -94,12 +95,13 @@ input[type=number] {
                                         <div class="btn-group">
                                             <form action="{{ route('student.destroy',$student->id) }}" method="POST">
                                                 <a class="btn btn-success" href="{{ url('students/edit/'.$student->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                {{-- <button  type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit{{ $student->id }}">Edit</button> --}}
+                                                <button  type="button" name="editbutton"class="btn btn-info" data-toggle="modal" data-target="#modal-edit">Edit</button>
+
 
 
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
-                                                    {{-- <input type="submit" data-id="{{ $student->id }}" class="btn btn-danger delete-user" value="Delete"> --}}
+
                                                 <button type="submit" data-id="{{ $student->id }}" class="btn btn-danger delete-user">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
@@ -163,6 +165,18 @@ input[type=number] {
                                             <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                             @error('lastname')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Username</strong>
+                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus onchange="validate()" minlength="8">
+
+                                            @error('username')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -263,24 +277,25 @@ input[type=number] {
                 </div>
 
                             {{-- Edit STUDENT MODAL --}}
-                        {{-- <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Add New Student</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Edit Student</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form name="custForm" action="{{ route('student.store') }}" method="POST">
+                                    <form name="custForm" action="{{ route('student.update', $student->id) }}" method="POST">
                                         <input type="hidden" name="cust_id" id="cust_id" >
                                         @csrf
+                                        @method('PUT')
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>First Name</strong>
-                                                    <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ $student->firstname }}" required autocomplete="firstname" autofocus onchange="validate()">
+                                                    <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ $student->firstname }}" required autocomplete="firstname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                                     @error('firstname')
                                                         <span class="invalid-feedback" role="alert">
@@ -292,7 +307,7 @@ input[type=number] {
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Middle Name</strong>
-                                                    <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ $student->middlename }}" required autocomplete="middlename" autofocus onchange="validate()">
+                                                    <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ $student->middlename }}" required autocomplete="middlename" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                                     @error('middlename')
                                                         <span class="invalid-feedback" role="alert">
@@ -304,9 +319,21 @@ input[type=number] {
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Last Name</strong>
-                                                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $student->lastname }}" required autocomplete="lastname" autofocus onchange="validate()">
+                                                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $student->lastname }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                                     @error('lastname')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Username</strong>
+                                                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ $student->username }}" required autocomplete="username" autofocus onchange="validate()" minlength="8">
+
+                                                    @error('username')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -328,8 +355,9 @@ input[type=number] {
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Birthday</strong>
-                                                    <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ $student->birthday }} onchange="validate()">
-
+                                                    <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ $student->birthday }} onchange="validate()">
+                                                    <input type='hidden' id='input_age' value="{{ old('agevalue')}}" name="agevalue">
+                                                        &nbsp&nbsp&nbsp <span class='agehere'></span>
                                                     @error('birthday')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -353,8 +381,8 @@ input[type=number] {
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Contact</strong>
-                                                    <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ $student->contact }}" onchange="validate()">
 
+                                                    <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onkeypress="return onlyNumberKey(event)" maxlength=11  placeholder="only 11 digits are allowed">
                                                     @error('contact')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -396,10 +424,8 @@ input[type=number] {
                                 </div>
                             </div>
                             </div>
-                        </div> --}}
+                        </div>
             </div>
-
-
         </div>
 
 @endsection
@@ -424,119 +450,6 @@ function validate()
     else
         document.custForm.btnsave.disabled=true
 }
-    $(document).ready(function(){
-
-        var lowerCaseLetters = /[a-z]/g;
-        var numbers = /[0-9]/g;
-        var upperCaseLetters = /[A-Z]/g;
-    //   var email_pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-    //   var pattern = /[^a-zA-Z0-9\!\@\#\$\%\^\*\_\|]+/;
-      $("#register-form").submit(function(){
-        //   let name = $("#name").val();
-          let password =$("#password").val();
-          let cpass = $("#password-confirm").val();
-          let email = $("#email").val();
-
-
-
-          if(email == ""){
-            swal({
-            title: "Missing",
-            text: 'Please insert your email',
-            icon: "warning",
-            button: "OK",
-            });
-
-            return false;
-          }else if(email_pattern.test(email) && email != "")
-          {
-
-          }else{
-            swal({
-            title: "Missing",
-            text: 'Invalid Email format!',
-            icon: "warning",
-            button: "OK",
-            });
-
-              return false;
-          }
-
-
-
-               if(!password.match(lowerCaseLetters) ){
-                    swal({
-                    title: "Password pattern",
-                    text: 'Password must contain lowercase letters',
-                    icon: "warning",
-                    button: "OK",
-                   });
-                    return false;
-                }
-                 if(!password.match(upperCaseLetters) ){
-                    swal({
-                        title: "Password pattern",
-                        text: 'Password must contain uppercase letters',
-                        icon: "warning",
-                        button: "OK",
-                       });
-                        return false;
-                }
-                 if(!password.match(numbers)){
-                    swal({
-                        title: "Password pattern",
-                        text: 'Password must contain numbers',
-                        icon: "warning",
-                        button: "OK",
-                       });
-                        return false;
-                }
-
-          if(password == ""){
-            swal({
-            title: "Missing",
-            text: 'Please insert your password',
-            icon: "warning",
-            button: "OK",
-            });
-
-            return false;
-          }else if(password.length > 0 && password.length < 10){
-              swal({
-            title: "Length",
-            text: 'Atleast 10 characters',
-            icon: "warning",
-            button: "OK",
-            });
-
-              return false;
-          }
-          if(cpass == ""){
-            swal({
-            title: "Missing",
-            text: 'Please confirm your password',
-            icon: "warning",
-            button: "OK",
-            });
-
-            return false;
-          }else if(cpass != password){
-              swal({
-            title: "Warning",
-            text: 'Password did not match!',
-            icon: "warning",
-            button: "OK",
-            });
-              return false;
-          }
-
-
-
-
-      });
-
-     })
-
 
         function onlyNumberKey(evt) {
 
@@ -591,10 +504,4 @@ function validate()
 
     }
 
-
-
-
-
-
-
-        </script>
+</script>

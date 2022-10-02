@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Students;
 use App\Announcement;
+use App\AnnouncementImage;
 use App\User;
 use App\Admin;
 use DB;
@@ -98,6 +99,7 @@ class AdminsController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 
+    //registration
 
     public function store(Request $request){
 
@@ -106,7 +108,7 @@ class AdminsController extends Controller
             'middlename' => 'required',
             'lastname' => 'required',
             'gender' => 'required',
-            'birthday' => 'required',
+            'birthday' => 'required|date|before:-18 years',
             'birthplace' => 'required',
             'contact' => 'required|numeric',
             'address' => 'required',
@@ -115,11 +117,7 @@ class AdminsController extends Controller
 
         $isEmpty = User::count();
         $fullname = $request['firstname'].' '. $request['middlename'].' '. $request['lastname'];
-        $check_email = User::where('email','=',$request->email)->first();
 
-        if($check_email == true){
-            return back()->with('success', 'Email is already existed');
-        }
         if($isEmpty == 0){
 
              $latestID = 00001;
@@ -136,8 +134,9 @@ class AdminsController extends Controller
             'firstname' => $request['firstname'],
             'middlename' => $request['middlename'],
             'lastname' => $request['lastname'],
+            'username' => $request['username'],
             'email' => $request['email'],
-            'password' => Hash::make($request['lastname'].$applicationID),
+            'password' => Hash::make($request['lastname']),
             'user_level' => '2',
 
         ]);
@@ -149,6 +148,7 @@ class AdminsController extends Controller
             'firstname' => $request['firstname'],
             'middlename' => $request['middlename'],
             'lastname' => $request['lastname'],
+            'username' => $request['username'],
             'gender' => $request['gender'],
             'birthday' => $request['birthday'],
             'birthplace' => $request['birthplace'],
@@ -169,16 +169,15 @@ class AdminsController extends Controller
             ]);
         }
 
-        //return redirect()->route('student.index')->with('success', 'Student has been Added');
         return redirect('/application')->with('success', 'Student has been Added');
     }
 
 
-        // UPDATE FUNCTION
+        // SHOW UPDATE
     public function edit(Students $student){
         return view('edit')->with('student',$student);
     }
-
+        // UPDATE FUNCTION
     public function update(Request $request, Students $student){
 
         //$email = $student->email;
@@ -186,12 +185,13 @@ class AdminsController extends Controller
 
         $student->update([
             // 'name' => $request->firstname.' '.$request->middlename.' '.$request->lastname,
-            // 'firstname' => $request->firstname,
-            // 'middlename' => $request->middlename,
-            // 'lastname' => $request->lastname,
-            // 'gender' => $request->gender,
-            // 'birthday' => $request->birthday,
-            // 'birthplace' => $request->birthplace,
+            'firstname' => $request->firstname,
+            'middlename' => $request->middlename,
+            'lastname' => $request->lastname,
+            'username' => $request->username,
+            'gender' => $request->gender,
+            'birthday' => $request->birthday,
+            'birthplace' => $request->birthplace,
             'contact' => $request->contact,
             'email' => $request->email,
             'address' => $request->address,
@@ -208,8 +208,34 @@ class AdminsController extends Controller
         }
 
 
+
+
         return redirect('/application')->with('success', 'Student has been Updated');
     }
+
+    public function editPost(request $request){
+
+        // dd($request);
+        dd($request->all());
+
+        $post = Post::find ($student->id);
+        $post->firstname = $student->firstname;
+        $post->middlename = $student->middlename;
+        $post->lastname = $student->lastname;
+        $post->gender = $student->gender;
+        $post->birthday = $student->birthday;
+        $post->birthplace = $student->birthplace;
+        $post->contact = $student->contact;
+        $post->email = $student->email;
+        $post->address = $student->address;
+        $post->updated_at = now();
+        $post->update();
+        return response()->json($post);
+    }
+
+
+
+
 
         //DELETE FUNCTION
     public function destroy($id)
@@ -341,9 +367,15 @@ class AdminsController extends Controller
       return view('dashboard',$data)->with('gender', json_encode($array));
     }
 
+    public function addAnnouncement()
+	{
+        // $image = Announcement::paginate(4);
 
+        // return view('announcement',['anc'=>$image])->with('i', (request()->input('page', 1) - 1) * 4);
+        return view('announcement');
+	}
 
-    public function announcement(Request $request){
+    public function announcement_store(Request $request){
         $this->validate($request,[
             'title' => 'required',
             'content' => 'required',
@@ -381,21 +413,13 @@ class AdminsController extends Controller
 
     }
 
-    public function addAnnouncement()
-	{
-        $image = Announcement::paginate(4);
-
-        return view('announcement',['anc'=>$image])->with('i', (request()->input('page', 1) - 1) * 4);
-	}
-
-
 
     public function displayAnnouncements()
 	{
-        $image = Announcement::paginate(4);
+        $data = Announcement::paginate(4);
 
 		// return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
-        return view('announcementlist',['anc'=>$image])->with('i', (request()->input('page', 1) - 1) * 4);
+        return view('announcementlist',['anc'=>$data])->with('i', (request()->input('page', 1) - 1) * 4);
 	}
 
     public function deleteAnnouncement($id){
@@ -468,7 +492,6 @@ class AdminsController extends Controller
     }
 
 
-
     // create new admin
 
     public function adminstore(Request $request){
@@ -478,6 +501,7 @@ class AdminsController extends Controller
             'middlename' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255'],
             'gender' => 'required',
             'birthday' => 'required',
             'birthplace' => 'required',
@@ -511,6 +535,7 @@ class AdminsController extends Controller
             'firstname' => $request['firstname'],
             'middlename' => $request['middlename'],
             'lastname' => $request['lastname'],
+            'username' => $request['username'],
             'email' => $request['email'],
             'password' => Hash::make($request['lastname'].$adminID),
             'user_level' => '1',
@@ -524,6 +549,7 @@ class AdminsController extends Controller
             'firstname' => $request['firstname'],
             'middlename' => $request['middlename'],
             'lastname' => $request['lastname'],
+            'username' => $request['username'],
             'gender' => $request['gender'],
             'birthday' => $request['birthday'],
             'birthplace' => $request['birthplace'],

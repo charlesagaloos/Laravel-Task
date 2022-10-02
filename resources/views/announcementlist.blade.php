@@ -54,7 +54,6 @@
           </tr>
           </thead>
           @php
-
             @endphp
             @foreach ($anc as $a)
                 <tbody>
@@ -64,6 +63,7 @@
                         <td>{{ $a->content }}</td>
                         <td>{{ $a->start_date }}</td>
                         <td>{{ $a->end_date }}</td>
+
                         <td><img class="imagedone" width=60% height=60% src="{{ URL::to($a->filename) }}"></td>
                         <td>
                             <div class="btn-group">
@@ -74,14 +74,8 @@
                                     <button type="submit" data-id="{{ $a->id }}" class="btn btn-danger delete-user">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
-
-
-
-
                                 </form>
                             </div>
-
-
                         </td>
                     </tr>
                 </tbody>
@@ -99,5 +93,3 @@
 </div>
 
 @endsection
-
-

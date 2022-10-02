@@ -45,33 +45,33 @@
                                 <div class="col-sm-12">
                                     <div class="left">
                                         <strong>First Name</strong>
-                                        <input type="text" name="firstname" class="form-control" value="{{ $student->firstname }}" placeholder="Firstname" disabled>
+                                        <input type="text" name="firstname" class="form-control" value="{{ $student->firstname }}" placeholder="Firstname">
                                     </div>
 
                                     <div class="left">
                                         <strong>Middle Name</strong>
-                                        <input type="text" name="middlename" class="form-control" value="{{ $student->middlename }}" placeholder="middlename" disabled>
+                                        <input type="text" name="middlename" class="form-control" value="{{ $student->middlename }}" placeholder="middlename">
                                     </div>
 
                                     <div class="left">
                                         <strong>Last Name</strong>
-                                        <input type="text" name="lastname" class="form-control" value="{{ $student->lastname }}" placeholder="lastname" disabled>
+                                        <input type="text" name="lastname" class="form-control" value="{{ $student->lastname }}" placeholder="lastname">
                                     </div>
 
 
                                     <div class="left">
                                         <strong>Gender</strong>
-                                        <input type="text" name="gender" class="form-control" value="{{ $student->gender }}" placeholder="Gender" disabled>
+                                        <input type="text" name="gender" class="form-control" value="{{ $student->gender }}" placeholder="Gender">
                                     </div>
 
                                     <div class="left">
                                         <strong>Birthday</strong>
-                                        <input type="date" name="birthday" class="form-control" value="{{ $student->birthday }}" placeholder="Birthday" disabled>
+                                        <input type="date" name="birthday" class="form-control" value="{{ $student->birthday }}" placeholder="Birthday">
                                     </div>
 
                                     <div class="left">
                                         <strong>Birth Place</strong>
-                                        <input type="text" name="birthplace" class="form-control" value="{{ $student->birthplace }}" placeholder="Birth Place" disabled>
+                                        <input type="text" name="birthplace" class="form-control" value="{{ $student->birthplace }}" placeholder="Birth Place">
                                     </div>
 
                                     <div class="left">

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Students;
+use DB;
+use Mail;
+use App\Mail\MailNotify;
 
 class RegisterController extends Controller
 {
@@ -55,15 +58,13 @@ class RegisterController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'middlename' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'firstname' => 'required',
-            'middlename' => 'required',
-            'lastname' => 'required',
             'gender' => 'required',
-            'birthday' => 'required',
+            'birthday' => 'required|date|before:-18 years',
             'birthplace' => 'required',
-            'contact' => 'required|numeric',
+            'contact' => 'required|numeric|unique:students',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => 'required',
@@ -79,49 +80,57 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        $isEmpty = User::count();
-        $fullname = $data['firstname'].' '. $data['middlename'].' '. $data['lastname'];
-        if($isEmpty == 0){
+        $email = $data['email'];
 
-             $latestID = 00001;
-             $applicationID = '2022A'.$latestID;
-         }
-         else{
-             $latest = User::all()->last()->id;
-             $latestID = $latest + 00001;
-             $applicationID = '2022A'.$latestID;
-         }
+            $isEmpty = User::count();
 
-        $userdata = User::create([
-            'appnum' => $applicationID,
-            'firstname' => $data['firstname'],
-            'middlename' => $data['middlename'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'user_level' => '2',
+                if($isEmpty == 0){
 
-        ]);
+                    $latestID = 00001;
+                    $applicationID = '2022A'.$latestID;
+                }
+                else{
+                    $latest = User::all()->last()->id;
+                    $latestID = $latest + 00001;
+                    $applicationID = '2022A'.$latestID;
+                }
 
-        Students::create([
-            'userid' => $userdata->id,
-            'appnum' => $applicationID,
-            'name' => $data['firstname'].' '.$data['middlename']. ' '.$data['lastname'],
-            'firstname' => $data['firstname'],
-            'middlename' => $data['middlename'],
-            'lastname' => $data['lastname'],
-            'gender' => $data['gender'],
-            'birthday' => $data['birthday'],
-            'birthplace' => $data['birthplace'],
-            'age' => $data['agevalue'],
-            'contact' => $data['contact'],
-            'email' => $data['email'],
-            'address' => $data['address'],
-            'profile_pic' => 'images/admin_user.png',
-            'created_at' => now(),
-        ]);
+                $userdata = User::create([
+                    'appnum' => $applicationID,
+                    'firstname' => $data['firstname'],
+                    'middlename' => $data['middlename'],
+                    'lastname' => $data['lastname'],
+                    'username' => $data['username'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'user_level' => '2',
 
-        return $userdata;
+                ]);
+
+                Students::create([
+                    'userid' => $userdata->id,
+                    'appnum' => $applicationID,
+                    'name' => $data['firstname'].' '.$data['middlename']. ' '.$data['lastname'],
+                    'firstname' => $data['firstname'],
+                    'middlename' => $data['middlename'],
+                    'lastname' => $data['lastname'],
+                    'username' => $data['username'],
+                    'gender' => $data['gender'],
+                    'birthday' => $data['birthday'],
+                    'birthplace' => $data['birthplace'],
+                    'age' => $data['agevalue'],
+                    'contact' => $data['contact'],
+                    'email' => $data['email'],
+                    'address' => $data['address'],
+                    'profile_pic' => 'images/admin_user.png',
+                    'created_at' => now(),
+                ]);
+
+                // Mail::to($email)->send(new MailNotify($userdata));
+
+
+                return $userdata;
+
 
     }
 }

@@ -19,6 +19,7 @@ class StudentsExport implements FromCollection,WithHeadings,ShouldAutoSize
             'gender',
             'birthday',
             'birthplace',
+            'age',
             'contact',
             'email',
             'address'

@@ -10,7 +10,7 @@
     }
 
     .instagram{
-        width:30%;
+        width:95%;
         height:100%;
         margin:auto;
         margin-bottom:2rem;
@@ -38,8 +38,8 @@
   }
   .box{
     border-radius: 10px;
-    width: 500px;
-    /* height: 700px; */
+    width: 80%;
+    height: 100%;
     position: relative;
     margin-bottom:16px;
     margin:auto;
@@ -56,11 +56,13 @@
     padding: 15px;
     background-color:rgba(255,255,255,.2); */
     height:700px;
+    width:100%;
     overflow-y: scroll;
     border-radius: 25px;
-    border: 2px solid rgba(20,87,179,.6);
+    /* border: 2px solid rgba(20,87,179,.6); */
     padding: 10px;
-    background-color:rgba(255,255,255,.2);
+    /* background-color:rgba(255,255,255,.2); */
+    background-color:none;
 
 
   }
@@ -150,6 +152,10 @@
     margin-bottom: 2rem;
   }
 </style>
+<div class="space">
+  <br>
+  <br>
+</div>
     <div class="content-scrollable">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -177,7 +183,7 @@
                 </a>
             </div>
         </div>
-        <div class="announcement" style="text-align:left; padding-left:20px; background:#0049ad; color:white;">
+        <div class="announcement" style="text-align:center; background:#0049ad; color:white;">
             <h1>Announcements!!!</h1>
         </div>
         <div class="instagram">
@@ -259,7 +265,7 @@
 
         <div class="hymn">
             <div class="hymn-header" style="background:#0049ad; color:white;">
-                <h1 style=" text-align:center; position: relative; transform:translateX(-35%);">HYMN</h1>
+                <h1>ISCP HYMN</h1>
             </div>
             <div class="video-hymn" style="margin-top:2%;">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/aXK8Is-zBcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

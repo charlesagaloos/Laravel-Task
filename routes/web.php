@@ -37,6 +37,9 @@ Route::post('/students','AdminsController@store')->name('student.store');
 Route::get('/students/edit/{student}','AdminsController@edit')->name('student.edit');
 Route::post('/students/{student}','AdminsController@update')->name('student.update');
 
+
+Route::PUT('editPost','AdminsController@editPost')->name('editPost');
+
 Route::delete('/students/{student}', 'AdminsController@destroy')->name('student.destroy');
 
 
@@ -53,7 +56,7 @@ Route::get('/export-csv','AdminsController@exportIntoCSV');
 
 //add announcement
 Route::get('/application/add-announcement','AdminsController@addAnnouncement')->name('student.announcement');
-Route::post('/announcements','AdminsController@announcement')->name('upload-announce');
+Route::post('/announcements','AdminsController@announcement_store')->name('upload-announce');
 
 //edit announcement
 Route::get('/announcement/edit/{student}','AdminsController@showEdit')->name('announcement.edit');

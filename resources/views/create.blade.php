@@ -67,6 +67,14 @@
 
                                 </div>
 
+                                <div class="col-md-4" style="padding:10px;">
+                                    <div class="left">
+                                        <strong>Username</strong>
+                                        <input type="text" name="username" class="form-control" placeholder="username" required placeholder="username" autofocus minlength="8">
+                                    </div>
+
+                                </div>
+
 
                             </div>
                             <div class="row">
@@ -317,7 +325,6 @@ function validate()
 
      })
 
-
         function onlyNumberKey(evt) {
 
         // Only ASCII character in that range allowed
@@ -334,9 +341,6 @@ function validate()
             e.preventDefault();
         }
     }
-
-
-
         function agecalculator(){
                var dNow = new Date();
 
@@ -371,10 +375,4 @@ function validate()
 
     }
 
-
-
-
-
-
-
-        </script>
+</script>

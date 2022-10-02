@@ -16,15 +16,12 @@
 	<script type="text/javascript" src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/echarts.min.js')}}"></script>
 
-
-
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/c/c9/Seal_of_the_International_State_College_of_the_Philippines.png" type="image/icon type">
     <title>ISCP Admin Portal</title>
-    {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     {{-- fonts --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -69,7 +66,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
+
 
 
     {{-- <!-- Styles -->
@@ -97,23 +94,9 @@
                 <br>
                 <span>Philippines</span>
               </div>
-            {{-- <div class="pull-left info">
-              <p>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} </p>
-
-            </div> --}}
           </div>
-          <!-- search form -->
-          {{-- <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                  </span>
-            </div> --}}
           </form>
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
+
           <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
 
@@ -150,15 +133,11 @@
                 <span>Application</span>
                 <i class="fa fa-angle-left pull-right"></i>
                 <span class="pull-right-container">
-                  {{-- <span class="label label-primary pull-right">4</span> --}}
                 </span>
               </a>
               <ul class="treeview-menu">
 
                 <li><a href="{{ url('/application') }}"><i class="fa fa-circle-o"></i> Student Application</a></li>
-                {{-- <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li> --}}
               </ul>
             </li>
 
@@ -170,15 +149,11 @@
                   <span>Announcements</span>
                   <i class="fa fa-angle-left pull-right"></i>
                   <span class="pull-right-container">
-                    {{-- <span class="label label-primary pull-right">4</span> --}}
                   </span>
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="{{ url('/application/add-announcement') }}"><i class="fa fa-circle-o"></i> Create Announcement</a></li>
                   <li><a href="{{ url('/announcements') }}"><i class="fa fa-circle-o"></i>Announcement List</a></li>
-                  {{-- <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                  <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                  <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li> --}}
                 </ul>
               </li>
 
@@ -189,177 +164,21 @@
                   <span>User Accounts</span>
                   <i class="fa fa-angle-left pull-right"></i>
                   <span class="pull-right-container">
-                    {{-- <span class="label label-primary pull-right">4</span> --}}
                   </span>
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="{{ url('/new-admin') }}"><i class="fa fa-circle-o"></i> Add New User Admin</a></li>
-                  {{-- <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                  <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                  <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li> --}}
                 </ul>
               </li>
 
-            {{--
-            <li>
-              <a href="pages/widgets.html">
-                <i class="fa fa-th"></i> <span>Widgets</span>
-                <span class="pull-right-container">
-                  <small class="label pull-right bg-green">new</small>
-                </span>
-              </a>
-            </li>
 
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Charts</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>UI Elements</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-edit"></i> <span>Forms</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-table"></i> <span>Tables</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="pages/calendar.html">
-                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                <span class="pull-right-container">
-                  <small class="label pull-right bg-red">3</small>
-                  <small class="label pull-right bg-blue">17</small>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="pages/mailbox/mailbox.html">
-                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                <span class="pull-right-container">
-                  <small class="label pull-right bg-yellow">12</small>
-                  <small class="label pull-right bg-green">16</small>
-                  <small class="label pull-right bg-red">5</small>
-                </span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i> <span>Examples</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-share"></i> <span>Multilevel</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level One
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                    <li class="treeview">
-                      <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                      </a>
-                      <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-              </ul>
-            </li>
-                 <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-            <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-          </ul> --}}
         </section>
-        <!-- /.sidebar -->
       </aside>
     <main class="content-wrapper">
         @yield('content')
     </main>
-    {{-- <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.4.18
-        </div>
-        <strong>Copyright &copy; 2022-2025 <a href="https://adminlte.io">ISCP</a>.</strong> All rights
-        reserved.
-    </footer> --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
 
 
     <!-- jQuery 3 -->
@@ -400,12 +219,22 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
 
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 
-</body>
+
+
 
 {{-- MODAL FUNCTION START --}}
-<script>
+{{-- <script>
     $(document).ready(function () {
 
     /* When click New student button */
@@ -416,28 +245,74 @@
         $('#crud-modal').modal('show');
     });
 
-    /* Edit student */
-    $('body').on('click', '#edit-student', function () {
-        var student_id = $(this).data('id');
-        $.get('students/'+student_id+'/edit', function (data) {
-            $('#studentCrudModal').html("Edit Student");
-            $('#btn-update').val("Update");
-            $('#btn-save').prop('disabled',false);
-            $('#crud-modal').modal('show');
-            $('#id').val(data.id);
-            $('#firstname').val(data.firstname);
-            $('#middlename').val(data.middlename);
-            $('#lastname').val(data.lastname);
-            $('#gender').val(data.gender);
-            $('#birthday').val(data.birthday);
-            $('#birthplace').val(data.birthplace);
-            $('#contact').val(data.contact);
-            $('#email').val(data.email);
-            $('#address').val(data.address);
-        })
-    });
+
+
+
 
 });
+</script>
 
-    </script>
+<script type="text/javascript">
+
+
+    // function Edit POST
+    $(document).on('click', '.edit-modal', function() {
+    $('#footer_action_button').text(" Update Post ");
+    $('#footer_action_button').addClass('glyphicon-check');
+    $('#footer_action_button').removeClass('glyphicon-trash');
+    $('.actionBtn').addClass('btn-success');
+    $('.actionBtn').removeClass('btn-danger');
+    $('.actionBtn').addClass('edit');
+    $('.modal-title').text('Post Edit');
+    $('.deleteContent').hide();
+    $('.form-horizontal').show();
+    $('#fid').val($(this).data('appnum'));
+    $('#f').val($(this).data('firstname'));
+    $('#m').val($(this).data('middlename'));
+    $('#l').val($(this).data('lastname'));
+    $('#g').val($(this).data('gender'));
+    $('#bd').val($(this).data('birthday'));
+    $('#bp').val($(this).data('birthplace'));
+    $('#c').val($(this).data('contact'));
+    $('#e').val($(this).data('email'));
+    $('#a').val($(this).data('address'));
+    $('#myModal').modal('show');
+    });
+
+
+
+    // form Delete function
+    $(document).on('click', '.delete-modal', function() {
+    $('#footer_action_button').text(" Delete");
+    $('#footer_action_button').removeClass('glyphicon-check');
+    $('#footer_action_button').addClass('glyphicon-trash');
+    $('.actionBtn').removeClass('btn-success');
+    $('.actionBtn').addClass('btn-danger');
+    $('.actionBtn').addClass('delete');
+    $('.modal-title').text('Delete Post');
+    $('.id').text($(this).data('id'));
+    $('.deleteContent').show();
+    $('.form-horizontal').hide();
+    $('.title').html($(this).data('title'));
+    $('#myModal').modal('show');
+    });
+
+    $('.modal-footer').on('click', '.delete', function(){
+      $.ajax({
+        type: 'POST',
+        url: 'deletePost',
+        data: {
+          '_token': $('input[name=_token]').val(),
+          'id': $('.id').text()
+        },
+        success: function(data){
+           $('.post' + $('.id').text()).remove();
+        }
+      });
+    });
+    </script> --}}
+
+
+</body>
+
 </html>

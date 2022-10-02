@@ -29,7 +29,7 @@ class StudentMiddleware
             }
 
         }else{
-            return redirect('/')->with('message', 'Please Login');
+            return redirect('/login')->with('message', 'Please Login');
 
         }
         return $next($request);

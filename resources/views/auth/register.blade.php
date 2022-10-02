@@ -1,35 +1,42 @@
 @extends('layouts.app')
 <style>
     *{
-        color:white;
+        /* color:black; */
     }
 
-    input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
-input[type=number] {
-  -moz-appearance: textfield;
-}
+        input[type=number] {
+        -moz-appearance: textfield;
+    }
 </style>
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card" style="background:rgba(255, 255, 255, .2); backdrop-filter:blur(10px);">
-                <div class="card-header">{{ __('Register') }}</div>
+
+                <div class="card-header" style="color:white;">{{ __('Register') }}</div>
 
                 <div class="card-body">
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-danger" style="color:black;">
+                        <p>{{ $message }}</p>
+                    </div>
+                    @endif
                     <form method="POST" action="{{ route('register') }}" id="register-form">
                         @csrf
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus placeholder="firstname" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus placeholder="firstname" minlength="2" pattern="[^()/><\][\\\x22,;|]+" onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                 @error('firstname')
                                     <span class="invalid-feedback" role="alert">
@@ -39,11 +46,11 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="middlename" class="col-md-4 col-form-label text-md-right">{{ __('Middle Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus placeholder="middlename" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')" onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus placeholder="middlename" minlength="2" pattern="[^()/><\][\\\x22,;|]+" onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                 @error('middlename')
                                     <span class="invalid-feedback" role="alert">
@@ -53,11 +60,11 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus placeholder="lastname" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')" onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus placeholder="lastname" minlength="2" pattern="[^()/><\][\\\x22,;|]+" onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
 
                                 @error('lastname')
                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +74,21 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
+                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="username" minlength="8">
+
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row" style="color:white;">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -81,7 +102,7 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -95,7 +116,7 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
@@ -103,12 +124,12 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
                             <div class="col-md-6" style="display:flex; align-items:center;">
                                 {{-- <input id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}"> --}}
-                                <div class="col-90">
+                                <div class="col-90" style="color:white;">
                                     <input type="radio" id="male" name="gender" value="Male" @if (old('gender'))
                                         checked
                                     @endif/>Male
@@ -125,7 +146,7 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
 
                             <div class="col-md-6">
@@ -139,7 +160,7 @@ input[type=number] {
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="birthplace" class="col-md-4 col-form-label text-md-right">{{ __('Birth Place') }}</label>
 
                             <div class="col-md-6">
@@ -153,7 +174,7 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="contact" class="col-md-4 col-form-label text-md-right">{{ __('Contact') }}</label>
 
                             <div class="col-md-6">
@@ -168,7 +189,7 @@ input[type=number] {
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="color:white;">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                             <div class="col-md-6">
