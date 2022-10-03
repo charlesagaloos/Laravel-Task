@@ -11,17 +11,17 @@ class MailNotify extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($user)
     {
-        $this->data = $data;
-        // dd($data);
+        $this->user = $user;
+        //  dd($user);
     }
 
     /**
@@ -31,8 +31,7 @@ class MailNotify extends Mailable
      */
     public function build()
     {
-        return $this->from('internationalstate2022@gmail.com', 'International State Campus of the Philippines')
-        ->subject($this->data['subject'])
-        ->view('usermail')->with('data',$this->data);
+        return $this->view('usermail')->with('user',$this->user);
+
     }
 }

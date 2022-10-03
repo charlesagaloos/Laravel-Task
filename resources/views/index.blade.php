@@ -95,7 +95,7 @@ input[type=number] {
                                         <div class="btn-group">
                                             <form action="{{ route('student.destroy',$student->id) }}" method="POST">
                                                 <a class="btn btn-success" href="{{ url('students/edit/'.$student->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <button  type="button" name="editbutton"class="btn btn-info" data-toggle="modal" data-target="#modal-edit {{$student->appnum}}">Edit</button>
+                                                <!-- <button  type="button" name="editbutton"class="btn btn-info" data-toggle="modal" data-target="#modal-edit {{$student->appnum}}">Edit</button> -->
 
 
 

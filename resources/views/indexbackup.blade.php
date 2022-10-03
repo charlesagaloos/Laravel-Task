@@ -62,7 +62,7 @@ input[type=number] {
                 @endif
 
                 <div class="container-fluid">
-                    <table id="datatable" class="table table-bordered table-striped">
+                    <table id="datatable" class="table table-bordered data-table">
                     <thead>
                     <tr>
                         {{-- <th>No.</th> --}}

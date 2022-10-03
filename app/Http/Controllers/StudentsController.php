@@ -46,6 +46,7 @@ class StudentsController extends Controller
 
         $announcement = Announcement::whereRaw("'$today' >= start_date and '$today' <= end_date")
         ->orderBy('id', 'ASC')->get();
+        // dd($today);
 
         return view('student.index',['anc'=>$announcement],['students' =>$students]);
     }
