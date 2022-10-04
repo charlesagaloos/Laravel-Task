@@ -184,7 +184,7 @@
             </div>
         </div>
         <div class="announcement" style="text-align:center; background:#0049ad; color:white;">
-            <h1>Announcements!!!</h1>
+            <h1>ANNOUNCEMENT</h1>
         </div>
         <div class="instagram">
             <div class="custom-announcement">
@@ -263,15 +263,8 @@
               </div>
         </div>
 
-        <div class="hymn">
-            <div class="hymn-header" style="background:#0049ad; color:white;">
-                <h1>ISCP HYMN</h1>
-            </div>
-            <div class="video-hymn" style="margin-top:2%;">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/aXK8Is-zBcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+    
+      </div>
 
 
 @endsection

@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Str;
 use App\Students;
+use App\User;
+use Carbon\Carbon;
 use DB;
 use Mail;
 use App\Mail\MailNotify;
@@ -101,6 +104,7 @@ class RegisterController extends Controller
                     'middlename' => $data['middlename'],
                     'lastname' => $data['lastname'],
                     'username' => $data['username'],
+                    'emailVerify_token'=>Str::random(60),
                     'email' => $data['email'],
                     'password' => Hash::make($data['password']),
                     'user_level' => '2',
@@ -126,11 +130,26 @@ class RegisterController extends Controller
                     'created_at' => now(),
                 ]);
 
-                // Mail::to($email)->send(new MailNotify($userdata));
+                Mail::to($email)->send(new MailNotify($userdata));
 
 
                 return $userdata;
 
 
+    }
+
+    public function emailverification($token){
+        $checktoken = User::where('emailVerify_token','=',$token)->first();
+        if(isset($checktoken)){
+            if(!$checktoken->email_verified_at){
+                
+                $checktoken->email_verified_at = Carbon::now();
+                $checktoken->update();
+                return redirect('login')->with('success','Successfully Verified!');
+            }
+           
+        }else{
+            return redirect('login')->with('fail','Account is already verified!');
+        }
     }
 }

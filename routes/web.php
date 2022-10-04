@@ -18,6 +18,7 @@ Auth::routes();
 
 //admin
 //Route::get('/','StudentsController@dashboard');
+Route::get('/verifyEmail/{token}',[App\Http\Controllers\Auth\RegisterController::class,'emailverification']);
 
 Route::get('/','AdminsController@dashboard');
 Route::post('/','AdminsController@dashboard')->name('student.dashboard');
