@@ -101,11 +101,16 @@
     box-shadow: 1px 5px 5px rgba(0,0,0,.6);
   }
   .box-body .box-details{
-    /* height:20%;
+    height:20%;
     overflow-y:scroll;
-    margin-top:10px; */
-    /* position: relative; */
+    margin-top:10px;
+    position: relative;
+    word-wrap: break-word;
   }
+
+  .box-body .box-details::-webkit-scrollbar{
+        display: none;
+    }
 
 
   .box-footer{
@@ -198,7 +203,32 @@
                             </div>
                             <div class="box-body">
                                 <div class="box-image">
-                                    <img class="slider-img"src="{{  asset($a->filename) }}" alt="Chania" style="width:100%; height:100%; object-fit:cover;">
+            {{-- ===================== OK FOR MULTIPLE IMAGES ===================================================== --}}
+                                @php
+                                $image = DB::table('announcement')->where('id', $a->id)->first();
+                                $images = explode('|', $image->filename);
+                            @endphp
+
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    @foreach( $images as $image)
+                                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                                    @endforeach
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" style="height: 100%; width: 100%;">
+                                    @foreach($images as $image)
+                                        <div class="item {{ $loop->first  ? 'active' : '' }}">
+                                            <img src="{{ URL::to($image) }}" class="student_announcement_image" style="width:100%; height:100%; object-fit:cover;">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+            {{-- ===================== OK FOR MULTIPLE IMAGES ===================================================== --}}
+                                    {{-- <img class="slider-img"src="{{  asset($a->filename) }}" alt="Chania" style="width:100%; height:100%; object-fit:cover;"> --}}
                                 </div>
                                 <h3>Content</h3>
                                 <div class="box-details" style="background:rgba(0,0,0,.1); box-shadow: 1px 5px 5px rgba(0,0,0,.2);">
@@ -263,7 +293,7 @@
               </div>
         </div>
 
-    
+
       </div>
 
 

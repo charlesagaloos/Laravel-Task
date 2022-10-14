@@ -142,12 +142,12 @@ class RegisterController extends Controller
         $checktoken = User::where('emailVerify_token','=',$token)->first();
         if(isset($checktoken)){
             if(!$checktoken->email_verified_at){
-                
+
                 $checktoken->email_verified_at = Carbon::now();
                 $checktoken->update();
                 return redirect('login')->with('success','Successfully Verified!');
             }
-           
+
         }else{
             return redirect('login')->with('fail','Account is already verified!');
         }

@@ -5,8 +5,10 @@ use App\Imports\StudentsImport;
 use App\Exports\StudentsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Students;
 use App\Announcement;
 use App\AnnouncementImage;
@@ -17,6 +19,8 @@ use PDF;
 use Auth;
 use Carbon\Carbon;
 use Storage;
+use Mail;
+use App\Mail\MailNotify;
 
 use Redirect,Response;
 
@@ -66,20 +70,39 @@ class AdminsController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 
-	public function index()
+	public function index(Request $request)
 	{
 
-		$students = Students::paginate(4);
-		return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
+		$students = Students::get();
+        if($request->ajax()){
+            $allData = DataTables::of($students)
+            ->addIndexColumn()
+            ->addColumn('action',function($row){
+                // EDIT
+                $btn = '<a href="javascript:void(0)" data-toggle="toolip" data-id="'.
+                $row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm
+                editStudent">Edit</a>';
+
+                // DELETE
+                $btn.= '<a href="javascript:void(0)" data-toggle="toolip" data-id="'.
+                $row->id.'" data-original-title="Delete" class="edit btn btn-danger btn-sm
+                deleteStudent">Delete</a>';
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+            return $allData;
+        }
+
+		return view('index',compact('students'));
 	}
 
+    // public function application()
+	// {
 
-    public function application()
-	{
-
-		$students = Students::paginate(4);
-		return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
-	}
+	// 	$students = Students::paginate(4);
+	// 	return view('index',compact('students'))->with('i', (request()->input('page', 1) - 1) * 4);
+	// }
 
 	/**
 	* Show the form for creating a new resource.
@@ -102,7 +125,14 @@ class AdminsController extends Controller
     //registration
 
     public function store(Request $request){
+        // dd($request->all());
 
+        $getData = Students::where('id',$request->student_id)->first();
+        $userID = "";
+        if(!empty($getData)){
+            $userID = $getData->userid;
+        }
+        // dd($userID);
         $this->validate($request, [
             'firstname' => 'required',
             'middlename' => 'required',
@@ -112,8 +142,10 @@ class AdminsController extends Controller
             'birthplace' => 'required',
             'contact' => 'required|numeric',
             'address' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->student_id], // yung validation naman dito nalilito siya kasi unique dapat per user kaso di niya alam kung kaninong user ba yung email na pinapasa kaya dinugtong ko to sa unique:user "email,'.$request->student_id"
         ]);
+        // dd($request->student_id);
+        $email = $request['email'];
 
         $isEmpty = User::count();
         $fullname = $request['firstname'].' '. $request['middlename'].' '. $request['lastname'];
@@ -129,36 +161,43 @@ class AdminsController extends Controller
              $applicationID = '2022A'.$latestID;
          }
 
-         $userdata = User::create([
-            'appnum' => $applicationID,
-            'firstname' => $request['firstname'],
-            'middlename' => $request['middlename'],
-            'lastname' => $request['lastname'],
-            'username' => $request['username'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['lastname']),
-            'user_level' => '2',
+         // dapat ang target mo dito di yung $request->student_id, dapat yung user_id na foreign key dun sa Students table mo
+         $userdata = User::updateOrCreate(
+            ['id' => $userID],
+            [
+                'appnum' => $applicationID,
+                'firstname' => $request['firstname'],
+                'middlename' => $request['middlename'],
+                'lastname' => $request['lastname'],
+                'username' => $request['username'],
+                'emailVerify_token'=>Str::random(60),
+                'email' => $request['email'],
+                'password' => Hash::make($request['lastname']),
+                'user_level' => '2',
 
-        ]);
+            ]);
 
-        Students::create([
-            'userid' => $userdata->id,
-            'appnum' => $applicationID,
-            'name' => $request['firstname'].' '.$request['middlename']. ' '.$request['lastname'],
-            'firstname' => $request['firstname'],
-            'middlename' => $request['middlename'],
-            'lastname' => $request['lastname'],
-            'username' => $request['username'],
-            'gender' => $request['gender'],
-            'birthday' => $request['birthday'],
-            'birthplace' => $request['birthplace'],
-            'age' => $request['agevalue'],
-            'contact' => $request['contact'],
-            'email' => $request['email'],
-            'address' => $request['address'],
-            'profile_pic' => 'images/admin_user.png',
-            'created_at' => now(),
-        ]);
+        // ito okay na
+        Students::updateOrCreate(
+            ['id' =>$request['student_id']],
+            [
+                'userid' => $userdata->id,
+                'appnum' => $applicationID,
+                'name' => $request['firstname'].' '.$request['middlename']. ' '.$request['lastname'],
+                'firstname' => $request['firstname'],
+                'middlename' => $request['middlename'],
+                'lastname' => $request['lastname'],
+                'username' => $request['username'],
+                'gender' => $request['gender'],
+                'birthday' => $request['birthday'],
+                'birthplace' => $request['birthplace'],
+                'age' => $request['agevalue'],
+                'contact' => $request['contact'],
+                'email' => $request['email'],
+                'address' => $request['address'],
+                'profile_pic' => 'images/admin_user.png',
+                'created_at' => now(),
+            ]);
 
 
         $studentdata = Students::where('email',$userdata->email)->first();
@@ -169,16 +208,105 @@ class AdminsController extends Controller
             ]);
         }
 
-        return redirect('/application')->with('success', 'Student has been Added');
+        Mail::to($email)->send(new MailNotify($userdata));
+
+        // return redirect('/application')->with('success', 'Student has been Added');
+        return response()->json(['success' => 'Student has been Added']);
+    }
+
+    // public function store(Request $request){
+
+    //     $this->validate($request, [
+    //                 'firstname' => 'required',
+    //                 'middlename' => 'required',
+    //                 'lastname' => 'required',
+    //                 'username' => 'required',
+    //                 'gender' => 'required',
+    //                 'birthday' => 'required|date|before:-18 years',
+    //                 'birthplace' => 'required',
+    //                 'contact' => 'required|numeric',
+    //                 'address' => 'required',
+    //                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //             ]);
+
+    //             $email = $request['email'];
+
+    //     $isEmpty = User::count();
+    //     $fullname = $request['firstname'].' '. $request['middlename'].' '. $request['lastname'];
+
+    //     if($isEmpty == 0){
+
+    //          $latestID = 00001;
+    //          $applicationID = '2022A'.$latestID;
+    //      }
+    //      else{
+    //          $latest = User::all()->last()->id;
+    //          $latestID = $latest + 00001;
+    //          $applicationID = '2022A'.$latestID;
+    //      }
+
+    //             $userdata = User::create([
+    //                         'appnum' => $applicationID,
+    //                         'firstname' => $request['firstname'],
+    //                         'middlename' => $request['middlename'],
+    //                         'lastname' => $request['lastname'],
+    //                         'username' => $request['username'],
+    //                         'emailVerify_token'=>Str::random(60),
+    //                         'email' => $request['email'],
+    //                         'password' => Hash::make($request['lastname']),
+    //                         'user_level' => '2',
+
+    //                     ]);
+
+    //     Students::updateOrCreate(
+    //         ['id'=>$request->student_id],
+    //             [
+    //                 'userid' => $userdata->id,
+    //                 'appnum' => $applicationID,
+    //                 'name' => $request['firstname'].' '.$request['middlename']. ' '.$request['lastname'],
+    //                 'firstname'=>$request->firstname,
+    //                 'middlename'=>$request->middlename,
+    //                 'lastname'=>$request->lastname,
+    //                 'username'=>$request->username,
+    //                 'gender'=>$request->gender,
+    //                 'birthday'=>$request->birthday,
+    //                 'birthplace'=>$request->birthplace,
+    //                 'contact'=>$request->contact,
+    //                 'address'=>$request->address,
+    //                 'email'=>$request->email,
+
+    //             ]
+    //     );
+    //     Mail::to($email)->send(new MailNotify($userdata));
+
+    //     return response()->json(['success' => 'Student has been Added']);
+    // }
+
+    public function emailverification($token){
+        $checktoken = User::where('emailVerify_token','=',$token)->first();
+        if(isset($checktoken)){
+            if(!$checktoken->email_verified_at){
+
+                $checktoken->email_verified_at = Carbon::now();
+                $checktoken->update();
+                return redirect('login')->with('success','Successfully Verified!');
+            }
+
+        }else{
+            return redirect('login')->with('fail','Account is already verified!');
+        }
     }
 
 
         // SHOW UPDATE
-    public function edit(Students $student){
-        return view('edit')->with('student',$student);
-    }
+    // public function edit(Students $student){
+    //     return $student;
+    //     // return view('edit')->with('student',$student);
+    // }
+
         // UPDATE FUNCTION
     public function update(Request $request, Students $student){
+
 
         //$email = $student->email;
         // dd($email);
@@ -190,6 +318,7 @@ class AdminsController extends Controller
             'lastname' => $request->lastname,
             'username' => $request->username,
             'gender' => $request->gender,
+            'age' => $request->age,
             'birthday' => $request->birthday,
             'birthplace' => $request->birthplace,
             'contact' => $request->contact,
@@ -197,7 +326,6 @@ class AdminsController extends Controller
             'address' => $request->address,
             'updated_at' => now(),
         ]);
-
         // $studentdata = User::where('email',$student->email)->first();
         $data = User::where('appnum',$student->appnum)->first();
         if ($data){
@@ -206,12 +334,15 @@ class AdminsController extends Controller
                 'email' => $student->email,
             ]);
         }
-
-
-
-
-        return redirect('/application')->with('success', 'Student has been Updated');
+        // return redirect('/application')->with('success', 'Student has been Updated');
+        return response()->json(['success' => 'Student has been Edit']);
     }
+
+    public function edit($id){
+        $students = Students::find($id);
+        return response()->json($students);
+
+        }
 
     public function editPost(request $request){
 
@@ -247,7 +378,8 @@ class AdminsController extends Controller
 
         User::where('id',$userID)->delete();
         Students::where('id',$id)->delete();
-        return redirect('/application')->with('success','Student has been Deleted');
+        // return redirect('/application')->with('success','Student has been Deleted');
+        return response()->json(['success' => 'Student has been Deleted']);
 	}
 
 
@@ -292,7 +424,7 @@ class AdminsController extends Controller
     public function import(Request $request){
         //dd($request);
         Excel::import(new StudentsImport,$request->file);
-        return redirect('/application')->with('success','Excel file imported successfully');
+        return redirect('/students')->with('success','Excel file imported successfully');
     }
 
 
@@ -509,6 +641,8 @@ class AdminsController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'address' => 'required',
         ]);
+
+        $email = $request['email'];
         $Year = date("Y");
         $user_admin = User::where('user_level','=','1')->count();
         $check_email = User::where('email','=',$request->email)->first();
@@ -536,8 +670,9 @@ class AdminsController extends Controller
             'middlename' => $request['middlename'],
             'lastname' => $request['lastname'],
             'username' => $request['username'],
+            'emailVerify_token'=>Str::random(60),
             'email' => $request['email'],
-            'password' => Hash::make($request['lastname'].$adminID),
+            'password' => Hash::make($request['lastname']),
             'user_level' => '1',
 
         ]);
@@ -568,6 +703,8 @@ class AdminsController extends Controller
                 'userid' => $userdata->id,
             ]);
         }
+
+        Mail::to($email)->send(new MailNotify($userdata));
 
         //return redirect()->route('student.index')->with('success', 'Student has been Added');
         return redirect('/new-admin')->with('success', 'New Admin Account Created');

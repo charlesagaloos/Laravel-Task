@@ -49,24 +49,25 @@
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>First Name</strong>
-                                        <input type="text" name="firstname" class="form-control" placeholder="firstname" required placeholder="firstname" autofocus minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                        <input type="text" name="firstname" class="form-control" placeholder="firstname" required placeholder="firstname" autofocus minlength="2" pattern="[^()/><\][\\\x22,;|]+"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Middle Name</strong>
-                                        <input type="text" name="middlename" class="form-control" placeholder="middle name" required placeholder="middlename" autofocus minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                        <input type="text" name="middlename" class="form-control" placeholder="middle name" required placeholder="middlename" autofocus minlength="2" pattern="[^()/><\][\\\x22,;|]+"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
                                     </div>
 
                                 </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Last Name</strong>
-                                        <input type="text" name="lastname" class="form-control" placeholder="lastname" required placeholder="lastname" autofocus minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                        <input type="text" name="lastname" class="form-control" placeholder="lastname" required placeholder="lastname" autofocus minlength="2" pattern="[^()/><\][\\\x22,;|]+"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
                                     </div>
 
                                 </div>
-
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Username</strong>
@@ -74,10 +75,33 @@
                                     </div>
 
                                 </div>
+                                <div class="col-md-4" style="padding:10px;">
+                                    <div class="left">
+                                        <strong>Email</strong>
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required placeholder="email address">
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4" style="padding:10px;">
+                                    <div class="left">
+                                        <strong>Birth Place</strong>
+                                        <input type="text" name="birthplace" class="form-control" placeholder="Birth Place" required placeholder="birthplace">
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding:10px;">
+                                    <div class="left">
+                                        <strong>Birthday</strong>
+                                        <input id="birthday" type="date" name="birthday" class="form-control" placeholder="Birthday" required onchange='agecalculator()'>
 
-                            </div>
-                            <div class="row">
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding:10px;">
+                                    <div class="left">
+                                        <strong>Age</strong>
+                                        <input type='text' id='input_age' class="form-control" value="{{ old('agevalue')}}" name="agevalue">
+                                                {{-- &nbsp&nbsp&nbsp <span class='agehere'></span> --}}
+                                    </div>
+                                </div>
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Gender</strong>
@@ -92,21 +116,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" style="padding:10px;">
-                                    <div class="left">
-                                        <strong>Birthday</strong>
-                                        <input id="birthday" type="date" name="birthday" class="form-control" placeholder="Birthday" required onchange='agecalculator()'>
 
-                                        <input type='hidden' id='input_age' value="{{ old('agevalue')}}" name="agevalue">
-                                                &nbsp&nbsp&nbsp <span class='agehere'></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" style="padding:10px;">
-                                    <div class="left">
-                                        <strong>Birth Place</strong>
-                                        <input type="text" name="birthplace" class="form-control" placeholder="Birth Place" required placeholder="birthplace">
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4" style="padding:10px;">
@@ -116,12 +126,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4" style="padding:10px;">
-                                    <div class="left">
-                                        <strong>Email</strong>
-                                        <input type="email" name="email" class="form-control" placeholder="Email" required placeholder="email address">
-                                    </div>
-                                </div>
+
                                 <div class="col-md-4" style="padding:10px;">
                                     <div class="left">
                                         <strong>Address</strong>

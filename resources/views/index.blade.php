@@ -32,7 +32,8 @@ input[type=number] {
                 <div class="btn-group">
                     <div class="btn">
                         <div>
-                            <a class="btn btn-warning" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Add New Student</a>
+                            <a class="btn btn-warning" href="javascript:void(0)" id="createNewStudent"><i class="fa fa-plus"></i> Add New Student</a>
+
                         </div>
                     </div>
 
@@ -62,384 +63,350 @@ input[type=number] {
                 @endif
 
                 <div class="container-fluid">
-                    <table id="datatable" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        {{-- <th>No.</th> --}}
-                        <th style="width: 20%">Name</th>
-                        <th>Gender</th>
-                        <th>Birthday</th>
-                        <th style="width: 12%">Birth Place</th>
-                        <th>Contact</th>
-                        <th style="width: 20%">Email</th>
-                        <th style="width: 20%">Address</th>
-                        <th style="width: 10%">Option</th>
-
-                    </tr>
-                    </thead>
-                    @php
-
-                        @endphp
-                        @foreach ($students as $student)
-                            <tbody>
-                                <tr id="student_id_{{ $student->id }}">
-                                    {{-- <td>{{ $student->id }}</td> --}}
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->gender }}</td>
-                                    <td>{{ $student->birthday }}</td>
-                                    <td>{{ $student->birthplace }}</td>
-                                    <td>{{ $student->contact }}</td>
-                                    <td>{{ $student->email }}</td>
-                                    <td>{{ $student->address }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <form action="{{ route('student.destroy',$student->id) }}" method="POST">
-                                                <a class="btn btn-success" href="{{ url('students/edit/'.$student->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <!-- <button  type="button" name="editbutton"class="btn btn-info" data-toggle="modal" data-target="#modal-edit {{$student->appnum}}">Edit</button> -->
-
-
-
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-
-                                                <button type="submit" data-id="{{ $student->id }}" class="btn btn-danger delete-user">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        @endforeach
+                    <table id="data-table" class="table table-bordered" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Gender</th>
+                                <th>Birthday</th>
+                                <th>Birth Place</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th style="width: 15%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
 
+                {{-- ADD STUDENT --}}
+                <div class="modal fade" id="ajaxModel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modalHeading"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="studentForm" name="studentForm" class="form-horizontal" method="POST">
+                                    {{-- <form name="studentForm" action="{{ route('student.store') }}" method="POST"> --}}
+                                    <input type="hidden" name="student_id" id="student_id">
+                                        @csrf
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>First Name</strong>
+                                                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus onchange="validate()" minlength="2" pattern="[^()/><\][\\\x22,;|]+"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)' placeholder="Firstname">
 
-
-                {!! $students->links() !!}
-
-                {{-- ADD STUDENT MODAL --}}
-                <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalScrollableTitle">Add New Student</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <form name="custForm" action="{{ route('student.store') }}" method="POST">
-                                <input type="hidden" name="cust_id" id="cust_id" >
-                                @csrf
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>First Name</strong>
-                                            <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
-
-                                            @error('firstname')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Middle Name</strong>
-                                            <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
-
-                                            @error('middlename')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Last Name</strong>
-                                            <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
-
-                                            @error('lastname')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Username</strong>
-                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus onchange="validate()" minlength="8">
-
-                                            @error('username')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Gender</strong>
-                                            {{-- <input id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" onchange="validate()"> --}}
-                                            <div class="col-90">
-                                                <input type="radio" id="male" name="gender" value="Male" @if (old('gender'))
-                                                    checked
-                                                @endif/>Male
-                                                <input type="radio" id="female" name="gender" value="Female" @if (old('gender'))
-                                                checked
-                                            @endif/>Female
+                                                @error('firstname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
-                                            @error('gender')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Birthday</strong>
-                                            <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange='agecalculator()'>
-                                            <input type='hidden' id='input_age' value="{{ old('agevalue')}}" name="agevalue">
-                                                &nbsp&nbsp&nbsp <span class='agehere'></span>
-                                            @error('birthday')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Middle Name</strong>
+                                                <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus onchange="validate()" minlength="2" pattern="[^()/><\][\\\x22,;|]+"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)' placeholder="Middlename">
 
+                                                @error('middlename')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Birth Place</strong>
-                                            <input id="birthplace" type="text" class="form-control @error('birthplace') is-invalid @enderror" name="birthplace" value="{{ old('birthplace') }}" onchange="validate()">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Last Name</strong>
+                                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" pattern="[^()/><\][\\\x22,;|]+"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)' placeholder="Lastname">
 
-                                            @error('birthplace')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                @error('lastname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Contact</strong>
-                                            {{-- <input id="contact" type="number" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onchange="validate()"> --}}
-                                            <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onkeypress="return onlyNumberKey(event)" maxlength=11  placeholder="only 11 digits are allowed">
-                                            @error('contact')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Email</strong>
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>User Name</strong>
+                                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus onchange="validate()" minlength="8" placeholder="Username">
 
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                                @error('username')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Email</strong>
+                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Gender</strong>
+                                                {{-- <input id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" onchange="validate()"> --}}
+
+
+                                                <div class="col-90">
+                                                <select name="gender" id="gender" class="form-control">
+                                                    @foreach($students as $student)
+                                                    <option value="{{$student->gender}}" hidden selected>{{$student->gender}}</option>
+                                                    @endforeach
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                                </div>
+
+                                                @error('gender')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Birthday</strong>
+                                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange='agecalculator()'>
+                                                <strong>Age</strong>
+                                                <input type='text' id='input_age' class="form-control @error('input_age') is-invalid @enderror" value="{{ old('agevalue')}}" name="agevalue">
+                                                    {{-- &nbsp&nbsp&nbsp <span class='agehere'></span> --}}
+                                                @error('birthday')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Birth Place</strong>
+                                                <input id="birthplace" type="text" class="form-control @error('birthplace') is-invalid @enderror" name="birthplace" value="{{ old('birthplace') }}" onchange="validate()" placeholder="Birthplace">
+
+                                                @error('birthplace')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Contact</strong>
+                                                {{-- <input id="contact" type="number" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onchange="validate()"> --}}
+                                                <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onkeypress="return onlyNumberKey(event)" maxlength=11  placeholder="only 11 digits are allowed">
+                                                @error('contact')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Address</strong>
+                                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" onchange="validate()" placeholder="Contact">
+
+                                                @error('address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                            <button type="submit" id="saveBtn" class="btn btn-primary" value="Create">Save</button>
+                                            {{-- <a href="{{ route('student.application') }}" class="btn btn-danger">Cancel</a> --}}
+                                            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Address</strong>
-                                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" onchange="validate()">
 
-                                            @error('address')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary">Submit</button>
-                                        <a href="{{ route('student.app') }}" class="btn btn-danger">Cancel</a>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
 
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
 
-                            {{-- Edit STUDENT MODAL --}}
-                        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Edit Student</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form name="custForm" action="{{ route('student.update', $student->id) }}" method="POST">
-                                        <input type="hidden" name="cust_id" id="cust_id" >
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>First Name</strong>
-                                                    <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ $student->firstname }}" required autocomplete="firstname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                {{-- EDIT STUDENT --}}
+                {{-- <div class="modal fade" id="modalEdit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modalHeading"></h4>
+                            </div>
+                            <div class="modal-body">
+                                    <form name="studentForm" action="{{ route('student.update') }}" method="POST">
+                                    <input type="hidden" name="student_id" id="student_id">
 
-                                                    @error('firstname')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Middle Name</strong>
-                                                    <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ $student->middlename }}" required autocomplete="middlename" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
+                                @csrf
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>First Name</strong>
+                                                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)' placeholder="Firstname">
 
-                                                    @error('middlename')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Last Name</strong>
-                                                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $student->lastname }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)'>
-
-                                                    @error('lastname')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Username</strong>
-                                                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ $student->username }}" required autocomplete="username" autofocus onchange="validate()" minlength="8">
-
-                                                    @error('username')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Gender</strong>
-                                                    <input id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ $student->gender }}" onchange="validate()">
-
-                                                    @error('gender')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Birthday</strong>
-                                                    <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ $student->birthday }} onchange="validate()">
-                                                    <input type='hidden' id='input_age' value="{{ old('agevalue')}}" name="agevalue">
-                                                        &nbsp&nbsp&nbsp <span class='agehere'></span>
-                                                    @error('birthday')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Birth Place</strong>
-                                                    <input id="birthplace" type="text" class="form-control @error('birthplace') is-invalid @enderror" name="birthplace" value="{{ $student->birthplace }}" onchange="validate()">
-
-                                                    @error('birthplace')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Contact</strong>
-
-                                                    <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onkeypress="return onlyNumberKey(event)" maxlength=11  placeholder="only 11 digits are allowed">
-                                                    @error('contact')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Email</strong>
-                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $student->email }}" required autocomplete="email">
-
-                                                    @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Address</strong>
-                                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $student->address }}" onchange="validate()">
-
-                                                    @error('address')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                                <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary">Submit</button>
-                                                <a href="{{ route('student.app') }}" class="btn btn-danger">Cancel</a>
+                                                @error('firstname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
-                                    </form>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Middle Name</strong>
+                                                <input id="middlename" type="text" class="form-control @error('middlename') is-invalid @enderror" name="middlename" value="{{ old('middlename') }}" required autocomplete="middlename" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)' placeholder="Middlename">
 
-                                </div>
-                            </div>
+                                                @error('middlename')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Last Name</strong>
+                                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus onchange="validate()" minlength="2" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g, '')"  onkeydown='preventNumbers(event)' onkeyup='preventNumbers(event)' placeholder="Lastname">
+
+                                                @error('lastname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>User Name</strong>
+                                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus onchange="validate()" minlength="8" placeholder="Username">
+
+                                                @error('username')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Email</strong>
+                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Gender</strong>
+
+                                                <div class="col-90">
+                                                    <input type="radio" id="male" name="gender" value="Male" @if (old('gender'))
+                                                        checked
+                                                    @endif/>Male
+                                                    <input type="radio" id="female" name="gender" value="Female" @if (old('gender'))
+                                                    checked
+                                                @endif/>Female
+                                                </div>
+                                                @error('gender')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Birthday</strong>
+                                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" onchange='agecalculator()'>
+                                                <input type='hidden' id='input_age' value="{{ old('agevalue')}}" name="agevalue">
+                                                    &nbsp&nbsp&nbsp <span class='agehere'></span>
+                                                @error('birthday')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Birth Place</strong>
+                                                <input id="birthplace" type="text" class="form-control @error('birthplace') is-invalid @enderror" name="birthplace" value="{{ old('birthplace') }}" onchange="validate()" placeholder="Birthplace">
+
+                                                @error('birthplace')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Contact</strong>
+
+                                                <input id="contact" type="tel" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" onkeypress="return onlyNumberKey(event)" maxlength=11  placeholder="only 11 digits are allowed">
+                                                @error('contact')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Address</strong>
+                                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" onchange="validate()" placeholder="Contact">
+
+                                                @error('address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                            <button type="button" id="btn-save" name="btnsave" class="btn btn-success">Update</button>
+                                            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+
                             </div>
                         </div>
+                    </div>
+                </div> --}}
+                {{-- {!! $students->links() !!} --}}
             </div>
         </div>
 
-@endsection
-
-
-          <!-- /.box-body -->
         </div>
-        <!-- /.box -->
       </div>
-      <!-- /.col -->
     </div>
-    <!-- /.row -->
   </section>
-
+  @endsection
 <script>
     error=false
 

@@ -23,25 +23,27 @@ Route::get('/verifyEmail/{token}',[App\Http\Controllers\Auth\RegisterController:
 Route::get('/','AdminsController@dashboard');
 Route::post('/','AdminsController@dashboard')->name('student.dashboard');
 
-Route::get('/application','AdminsController@index');
-Route::post('/application','AdminsController@application')->name('student.app');
-
 Route::get('/pie-charts','AdminsController@piecharts');
 Route::post('/pie-charts','AdminsController@piecharts')->name('student.pie');
 
 Route::get('/line-charts','AdminsController@linecharts');
 Route::post('/line-charts','AdminsController@linecharts')->name('student.line');
 
-Route::get('/students','AdminsController@create')->name('student.create');
+
+// Route::post('/students','AdminsController@application')->name('student.app');
+
+Route::get('/students','AdminsController@index')->name('student.index');
+Route::get('/students/create','AdminsController@create')->name('student.create');
+Route::post('/students/{student}','AdminsController@edit')->name('student.store');
 Route::post('/students','AdminsController@store')->name('student.store');
 
-Route::get('/students/edit/{student}','AdminsController@edit')->name('student.edit');
-Route::post('/students/{student}','AdminsController@update')->name('student.update');
+Route::post('/students/{student}/edit','AdminsController@edit')->name('student.edit');
+Route::PUT('/students/{student}','AdminsController@update')->name('student.update');
 
 
 Route::PUT('editPost','AdminsController@editPost')->name('editPost');
 
-Route::delete('/students/{student}', 'AdminsController@destroy')->name('student.destroy');
+Route::DELETE('/students/{student}', 'AdminsController@destroy')->name('student.destroy');
 
 
 Route::get('/studentlist','AdminsController@downloadPDF');

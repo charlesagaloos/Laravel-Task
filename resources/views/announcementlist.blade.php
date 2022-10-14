@@ -48,7 +48,7 @@
             <th style="width: 45%">Content</th>
             <th style="width: 8%">Start</th>
             <th style="width: 8%">End</th>
-            <th style="width: 16%">Image</th>
+            {{-- <th style="width: 16%">Image</th> --}}
             <th style="width: 15%">Option</th>
 
           </tr>
@@ -64,7 +64,7 @@
                         <td>{{ $a->start_date }}</td>
                         <td>{{ $a->end_date }}</td>
 
-                        <td><img class="imagedone" width=60% height=60% src="{{ URL::to($a->filename) }}"></td>
+                        {{-- <td><img class="imagedone" width=60% height=60% src="{{ URL::to($a->filename) }}"></td> --}}
                         <td>
                             <div class="btn-group">
                                 <form action="{{ route('announcement.delete',$a->id) }}" method="POST">

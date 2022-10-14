@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap.min.css"
+    rel="stylesheet">
+
     {{-- PIE CHART --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
     {{-- LINE CHART --}}
 	<link href="{{asset('assets/css/components.min.css')}}" rel="stylesheet" type="text/css">
@@ -21,7 +23,7 @@
 
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/c/c9/Seal_of_the_International_State_College_of_the_Philippines.png" type="image/icon type">
     <title>ISCP Admin Portal</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 
     {{-- fonts --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -58,7 +60,6 @@
   <![endif]-->
 
 
-
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
@@ -68,11 +69,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 
-
     {{-- <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
-    {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> --}}
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     @include('inc.header')
@@ -137,7 +136,7 @@
               </a>
               <ul class="treeview-menu">
 
-                <li><a href="{{ url('/application') }}"><i class="fa fa-circle-o"></i> Student Application</a></li>
+                <li><a href="{{ url('/students') }}"><i class="fa fa-circle-o"></i> Student Application</a></li>
               </ul>
             </li>
 
@@ -177,9 +176,6 @@
     <main class="content-wrapper">
         @yield('content')
     </main>
-
-
-
 
     <!-- jQuery 3 -->
     <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
@@ -222,100 +218,126 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!--  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script>
 
 
-
-{{-- MODAL FUNCTION START --}}
-{{-- <script>
-    $(document).ready(function () {
-
-    /* When click New student button */
-    $('#new-student').click(function () {
-        $('#btn-save').val("create-student");
-        $('#student').trigger("reset");
-        $('#studentCrudModal').html("Add New Student");
-        $('#crud-modal').modal('show');
-    });
-
-
-
-
-
-});
-</script>
-
-<script type="text/javascript">
-
-
-    // function Edit POST
-    $(document).on('click', '.edit-modal', function() {
-    $('#footer_action_button').text(" Update Post ");
-    $('#footer_action_button').addClass('glyphicon-check');
-    $('#footer_action_button').removeClass('glyphicon-trash');
-    $('.actionBtn').addClass('btn-success');
-    $('.actionBtn').removeClass('btn-danger');
-    $('.actionBtn').addClass('edit');
-    $('.modal-title').text('Post Edit');
-    $('.deleteContent').hide();
-    $('.form-horizontal').show();
-    $('#fid').val($(this).data('appnum'));
-    $('#f').val($(this).data('firstname'));
-    $('#m').val($(this).data('middlename'));
-    $('#l').val($(this).data('lastname'));
-    $('#g').val($(this).data('gender'));
-    $('#bd').val($(this).data('birthday'));
-    $('#bp').val($(this).data('birthplace'));
-    $('#c').val($(this).data('contact'));
-    $('#e').val($(this).data('email'));
-    $('#a').val($(this).data('address'));
-    $('#myModal').modal('show');
-    });
-
-
-
-    // form Delete function
-    $(document).on('click', '.delete-modal', function() {
-    $('#footer_action_button').text(" Delete");
-    $('#footer_action_button').removeClass('glyphicon-check');
-    $('#footer_action_button').addClass('glyphicon-trash');
-    $('.actionBtn').removeClass('btn-success');
-    $('.actionBtn').addClass('btn-danger');
-    $('.actionBtn').addClass('delete');
-    $('.modal-title').text('Delete Post');
-    $('.id').text($(this).data('id'));
-    $('.deleteContent').show();
-    $('.form-horizontal').hide();
-    $('.title').html($(this).data('title'));
-    $('#myModal').modal('show');
-    });
-
-    $('.modal-footer').on('click', '.delete', function(){
-      $.ajax({
-        type: 'POST',
-        url: 'deletePost',
-        data: {
-          '_token': $('input[name=_token]').val(),
-          'id': $('.id').text()
-        },
-        success: function(data){
-           $('.post' + $('.id').text()).remove();
-        }
-      });
-    });
-    </script> --}}
 
 
 </body>
 
+<script type="text/javascript">
+    $(function(){
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var table = $("#data-table").DataTable({
+            serverSide:true,
+            processing:true,
+            ajax:"{{ url('students') }}",
+            columns:[
+                {data:'DT_RowIndex',name:'DT_RowIndex'},
+                {data:'name',name:'name'},
+                {data:'username',name:'username'},
+                {data:'gender',name:'gender'},
+                {data:'birthday',name:'birthday'},
+                {data:'birthplace',name:'birthplace'},
+                {data:'contact',name:'contact'},
+                {data:'email',name:'email'},
+                {data:'address',name:'address'},
+                {data:'action',name:'actoin', orderable: false, searchable: false},
+
+
+            ]
+        });
+
+         //modal show and function
+     $("#createNewStudent").click(function(){
+            $("#student_id").val('');
+            $("#studentForm").trigger("reset");
+            $("#modalHeading").html("Add Student")
+            $('#ajaxModel').modal('show');
+        });
+
+        $("#saveBtn").click(function(e){
+            e.preventDefault();
+            $(this).html('Save');
+            var formData = $("#studentForm").serialize();
+
+            console.log(formData);
+            $.ajax({
+                data:formData,
+                url:"{{ route('student.store') }}",
+                type:"POST",
+                dataType:'json',
+                success:function(data){
+                    $("#studentForm").trigger("reset");
+                    $('#ajaxModel').modal('hide');
+                    table.draw();
+                },
+                error:function(data){
+                    console.log('Error:',data);
+                    $("#saveBtn").html('Save');
+                }
+            });
+        });
+
+        $('body').on('click','.deleteStudent',function(){
+            var student_id = $(this).data("id");
+            confirm("Are you sure you want to delete!");
+            $.ajax({
+                type:"DELETE",
+                url: "{{ route('student.store') }}"+'/'+student_id,
+                success:function(data){
+                    table.draw();
+                },
+                error:function(data){
+                    console.log('Error:',data);
+                }
+            });
+        });
+
+        $('body').on('click','.editStudent',function(){
+            var student_id = $(this).data("id");
+            // var url = "{{ route('student.index') }}"+"/"+student_id+"/edit";
+
+            // console.log(url+"/"+student_id);
+
+            $.post("{{ route('student.store') }}"+"/"+student_id+"/edit",function(data){
+                console.log(student_id);
+                $("#modalHeading").html("Edit Student");
+                $('#ajaxModel').modal('show'); // ito yung modal na naoopen diba?
+                $("#student_id").val(data.id);
+                $("#firstname").val(data.firstname);
+                $("#middlename").val(data.middlename);
+                $("#lastname").val(data.lastname);
+                $("#username").val(data.username);
+                $("#email").val(data.email);
+                $("#gender").val(data.gender);
+                $("#input_age").val(data.age);
+                $("#birthday").val(data.birthday);
+                $("#birthplace").val(data.birthplace);
+                $("#contact").val(data.contact);
+                $("#address").val(data.address);
+            });
+        });
+
+    });
+</script>
 </html>
